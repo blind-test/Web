@@ -64,14 +64,16 @@ function receive_sign_up(payload){
 }
 
 export function sign_up(payload){
+    console.log(payload);
     return dispatch => {
-        dispatch(request_sign_up(payload))
-        return fetch(`${API_ROOT}/auth/sign_up`,{
+        // dispatch(request_sign_up(payload))
+        return fetch(`${API_ROOT}auth/sign_up`,{
             method:"POST",
             mode:"cors",
             cache: "no-cache",
             headers: {
                 "Content-Type":"application/json;charset=UTF-8",
+
             } ,
             body:payload
         })

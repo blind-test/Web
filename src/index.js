@@ -1,10 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import { createStore } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import {createLogger} from 'redux-logger'
+import {applyMiddleware, createStore} from 'redux'
 import userReducer from './reducers/userReducer'
 import {sign_up} from "./actions/userActions";
-const store = createStore(userReducer)
+const loggerMiddleware = createLogger()
+const store = createStore(
+    userReducer,
+    applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware
+    )
+)
 
 const Index = () => {
     return <div>Hello React!</div>;
