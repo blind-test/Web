@@ -32,13 +32,10 @@ function app(state = {}, action){
     switch (action.type) {
         case RECEIVE_SIGN_IN:
             return sign_in(state, action)
-            break
         case RECEIVE_SIGN_UP:
             return sign_up(state, action)
-            break
         case RECEIVE_SIGN_OUT:
             return sign_out(state, action)
-            break
         default:
             return state
     }
