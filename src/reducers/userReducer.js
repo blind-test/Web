@@ -13,7 +13,7 @@ import {initialState} from '../constant'
 
 function sign_in(state = {}, action){
     return Object.assign({},state,{
-        auth:{jwt:'AWESOME'}
+        auth:{token:action.payload.token}
     })
 
 }

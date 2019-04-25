@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 import {applyMiddleware, createStore} from 'redux'
 import userReducer from './reducers/userReducer'
-import {sign_up} from "./actions/userActions";
+import {sign_up,sign_in,sign_out} from "./actions/userActions";
 const loggerMiddleware = createLogger()
 const store = createStore(
     userReducer,
@@ -42,9 +42,13 @@ const payload_up = {
 }
 
 // Dispatch some actions
-store.dispatch(sign_up(payload_up))
-// store.dispatch(sign_in(payload_in))
-// store.dispatch(sign_out())
+// store.dispatch(sign_up( JSON.stringify(payload_up) ))
+store.dispatch(sign_in( JSON.stringify(payload_in) ))
+// setTimeout(
+//     () => store.dispatch(sign_out( JSON.stringify() ))
+//     ,2000
+// )
+
 
 // Stop listening to state updates
 unsubscribe()

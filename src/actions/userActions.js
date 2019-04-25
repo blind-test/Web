@@ -22,17 +22,18 @@ function receive_sign_in(payload){
         payload: payload
     }
 }
-function request_sign_out(){
-    return {
-        type: REQUEST_SIGN_OUT
-    }
-}
-
 export function sign_in(payload){
     return dispatch => {
         dispatch(request_sign_in(payload))
-        return fetch(`${API_ROOT}`,{
+        return fetch(`${API_ROOT}auth/sign_in`,{
+            method:"POST",
+            mode:"cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type":"application/json;charset=UTF-8",
 
+            } ,
+            body:payload
         })
         .then(
             response => response.json(),
@@ -45,11 +46,39 @@ export function sign_in(payload){
     }
 }
 
+function request_sign_out(){
+    return {
+        type: REQUEST_SIGN_OUT
+    }
+}
+
 function receive_sign_out(){
     return {
         type: RECEIVE_SIGN_OUT
     }
 }
+
+
+export function sign_out(token){
+    return dispatch => {
+        dispatch(request_sign_out(token))
+        return fetch(`${API_ROOT}auth/sign_out`,{
+            method:"POST",
+            mode:"cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type":"application/json;charset=UTF-8",
+                "JWT":token
+            }
+        })
+            .then(
+                response => dispatch(receive_sign_out(response.json()))
+            )
+            .catch(error=> console.error(error)
+            )
+    }
+}
+
 function request_sign_up(payload){
     return {
         type: REQUEST_SIGN_UP,
@@ -78,13 +107,9 @@ export function sign_up(payload){
             body:payload
         })
             .then(
-                response => response.json(),
-                error => console.error("failed signin",error)
+                response => dispatch(receive_sign_up(response.json())),
             )
-            .then(json=> {
-                    console.log("signup",json);
-                    return (!json.error) ? dispatch(receive_sign_up(json)) : null
-                }
+            .catch(error=> console.error(error)
             )
     }
 }
