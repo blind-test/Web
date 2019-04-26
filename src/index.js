@@ -5,6 +5,7 @@ import {createLogger} from 'redux-logger'
 import {applyMiddleware, createStore} from 'redux'
 import userReducer from './reducers/userReducer'
 import {sign_up,sign_in,sign_out} from "./actions/userActions";
+import Root from "./components/Root";
 const loggerMiddleware = createLogger()
 const store = createStore(
     userReducer,
@@ -18,7 +19,12 @@ const Index = () => {
     return <div>Hello React!</div>;
 };
 
-ReactDOM.render(<Index />, document.getElementById("index"));
+
+
+ReactDOM.render(
+    <Root store={store} />,
+    document.getElementById("root")
+);
 
 
 // Log the initial state
@@ -43,7 +49,7 @@ const payload_up = {
 
 // Dispatch some actions
 // store.dispatch(sign_up( JSON.stringify(payload_up) ))
-store.dispatch(sign_in( JSON.stringify(payload_in) ))
+// store.dispatch(sign_in( JSON.stringify(payload_in) ))
 // setTimeout(
 //     () => store.dispatch(sign_out( JSON.stringify() ))
 //     ,2000
