@@ -49,7 +49,7 @@ const payload_up = {
 
 // Dispatch some actions
 // store.dispatch(sign_up( JSON.stringify(payload_up) ))
-// store.dispatch(sign_in( JSON.stringify(payload_in) ))
+store.dispatch(sign_in( JSON.stringify(payload_in) ))
 // setTimeout(
 //     () => store.dispatch(sign_out( JSON.stringify() ))
 //     ,2000

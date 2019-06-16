@@ -10,9 +10,10 @@ export const initialState = {
         jwt: ''
     }
 }
-
-const PROTOCOL = "http"
-const PORT = 3000
-const DOMAIN = "192.168.56.101"
+// https://blind-test-api.herokuapp.com/
+const PROTOCOL = "https"
+const PORT = 443
+// const DOMAIN = "192.168.56.101"
+const DOMAIN = "blind-test-api.herokuapp.com"
 const ROOT_PATH = "/"
 export const API_ROOT = `${PROTOCOL}://${DOMAIN}:${PORT}${ROOT_PATH}`

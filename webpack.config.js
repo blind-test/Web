@@ -11,6 +11,11 @@ const devMode = process.env.NODE_ENV !== "production";
 module.exports = {
     mode: "development",
     entry:["./src/index.js","./scss/app.scss"],
+    devServer: {
+        historyApiFallback: true,
+        contentBase: './',
+        hot: true
+    },
     module: {
         rules: [
             {

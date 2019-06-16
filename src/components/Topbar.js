@@ -13,7 +13,7 @@ export class Topbar extends Component{
             <div className={"topbar"}>
                 <Link to={"/"}>Home</Link>&nbsp;/&nbsp;
                 <Link to={"/sign_in"}>Sign In</Link>&nbsp;/&nbsp;
-                <Link to={"/sign_up"}>Sign Up</Link>
+                <Link to={"/sign_up"}>Join Us</Link>
             </div>
         )
     }

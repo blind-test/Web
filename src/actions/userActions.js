@@ -36,12 +36,10 @@ export function sign_in(payload){
             body:payload
         })
         .then(
-            response => response.json(),
-            error => console.error("failed signin",error)
+            response => dispatch(receive_sign_in(response.json())),
+            // error => console.error("failed signin",error)
         )
-        .then(json=> {
-            return (!json.error) ? dispatch(receive_sign_in(json)) : null
-            }
+        .catch(error=> console.error("failed signin",error)
         )
     }
 }

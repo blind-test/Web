@@ -12,7 +12,6 @@ class Index extends Component{
     render(){
         return (
             <Fragment>
-                <Topbar />
                 <p>Hello react!</p>
             </Fragment>
         )
