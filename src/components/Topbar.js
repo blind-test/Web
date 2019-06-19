@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import {connect} from "react-redux";
 import {sign_out} from "../actions/userActions";
@@ -17,13 +17,22 @@ class Topbar extends Component{
         this.props.dispatch(sign_out(JSON.stringify(payload)))
     }
 
+
     render(){
+        const {auth} = this.props
         return (
             <div className={"topbar"}>
                 <Link to={"/"}>Home</Link>&nbsp;/&nbsp;
-                <Link to={"/sign_in"}>Sign In</Link>&nbsp;/&nbsp;
-                <Link to={"/sign_up"}>Join Us</Link>&nbsp;/&nbsp;
-                <a onClick={this.logOut}>Log out</a>
+                {auth.token === "" || !auth.token
+                    ?
+                    <Fragment>
+                        <Link to={"/sign_in"}>Sign In</Link>&nbsp;/&nbsp;
+                        <Link to={"/sign_up"}>Join Us</Link>
+                    </Fragment>
+                    : <a onClick={this.logOut}>Log out</a>
+                }
+
+
             </div>
         )
     }
