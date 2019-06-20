@@ -7,10 +7,10 @@ import Topbar from "./Topbar";
 const App = ({children}) => {
     return (
         <Fragment>
-
-            <div className={"grid-container"}>
             <Topbar />
-                <br/>
+            <br/>
+            <div className={"grid-container"}>
+
             {children}
             </div>
         </Fragment>

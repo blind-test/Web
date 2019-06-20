@@ -17,10 +17,10 @@ class SignIn extends Component{
         event.preventDefault()
         console.log(event.target)
         const form = event.target
-        const username = form.querySelector('[name="username"]').value
+        const email = form.querySelector('[name="email"]').value
         const password = form.querySelector('[name="password"]').value
-        console.table(username,password)
-        const payload = {email:username, password:password}
+        console.table(email,password)
+        const payload = {email:email, password:password}
         this.props.dispatch(sign_in(JSON.stringify(payload)))
     }
 
@@ -31,8 +31,8 @@ class SignIn extends Component{
                 <form method={"post"} onSubmit={this.logIn} >
                         <div className={"grid-x grid-padding-x"}>
                             <div className={"medium-6 small-12 cell"}>
-                                <label>Username
-                                    <input type={"text"} name={"username"} />
+                                <label>Email
+                                    <input type={"text"} name={"email"} />
                                 </label>
                             </div>
                             <div className={"medium-6 small-12 cell"}>

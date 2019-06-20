@@ -7,7 +7,7 @@ export const initialState = {
         password: ''
     },
     auth:{
-        token: ''
+        token: '0'
     }
 }
 // https://blind-test-api.herokuapp.com/
