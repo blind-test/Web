@@ -6,6 +6,9 @@ import Index from "./Index";
 import App from "./App";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Profile from "./Profile";
+// import ThemesListing from "./ThemesListing";
+// import Theme from "./Theme";
 
 
 
@@ -16,7 +19,9 @@ const Root = ({ store }) =>  (
                 <Route exact path="/" component={Index}/>
                 <Route exact path="/sign_in" component={SignIn}/>
                 <Route exact path="/sign_up" component={SignUp}/>
-
+                <Route exact path="/profile" component={Profile}/>
+                {/*<Route exact path="/themes" component={ThemesListing}/>*/}
+                {/*<Route exact path="/theme/:name" component={Theme}/>*/}
             </App>
         </Router>
     </Provider>
