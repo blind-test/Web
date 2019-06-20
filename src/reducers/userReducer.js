@@ -12,6 +12,7 @@ import {initialState} from '../constant'
 
 
 function sign_in(state = {}, action){
+
     return Object.assign({},state,{
         auth:{token:action.payload.token}
     })
@@ -19,16 +20,17 @@ function sign_in(state = {}, action){
 }
 function sign_out(state = {}, action){
     return Object.assign({},state,{
-        auth:{jwt:''}
+        auth:{token:''}
     })
 }
 function sign_up(state = {}, action){
+    console.table(action.payload);
     return Object.assign({},state,{
         user: action.payload
     })
 }
 
-function app(state = {}, action){
+function app(state = initialState, action){
     switch (action.type) {
         case RECEIVE_SIGN_IN:
             return sign_in(state, action)

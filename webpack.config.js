@@ -52,7 +52,7 @@ module.exports = {
         })
 
     ],
-    // watch: true,
+    watch: true,
     watchOptions: {
         ignored: /node_modules/,
         aggregateTimeout: 1000

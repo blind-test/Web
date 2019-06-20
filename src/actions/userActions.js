@@ -36,10 +36,14 @@ export function sign_in(payload){
             body:payload
         })
         .then(
-            response => dispatch(receive_sign_in(response.json())),
-            // error => console.error("failed signin",error)
-        )
-        .catch(error=> console.error("failed signin",error)
+            response => response.json())
+        .then(json =>{
+            if(!json.error)
+                dispatch(receive_sign_in(json))
+            else
+                console.error("Wrong auth", json.error);
+        })
+        .catch(error=> console.error("error while signin",error)
         )
     }
 }
@@ -70,8 +74,14 @@ export function sign_out(token){
             }
         })
             .then(
-                response => dispatch(receive_sign_out(response.json()))
+                response => response.json()
             )
+            .then(json => {
+                if(!json.error)
+                    dispatch(receive_sign_out(json))
+                else
+                    console.error("an error occured while signing out", json.error);
+            })
             .catch(error=> console.error(error)
             )
     }
@@ -105,8 +115,14 @@ export function sign_up(payload){
             body:payload
         })
             .then(
-                response => dispatch(receive_sign_up(response.json())),
+                response => response.json()
             )
+            .then( json => {
+                if(!json.error)
+                    dispatch(receive_sign_up(json))
+                else
+                    console.error("something wrong happened while signing up", json.error);
+            })
             .catch(error=> console.error(error)
             )
     }
