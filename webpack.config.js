@@ -1,20 +1,28 @@
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const postcssPresetEnv = require("postcss-preset-env");
 
 const htmlPlugin = new HtmlWebPackPlugin({
-    template: "./public/index.html",
-    filename: "./index.html"
+    template: "assets/index.html",
+    filename: "../public/index.html",
+    inject: true,
+    hash: true,
 });
 const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
     mode: "development",
-    entry:["./src/index.js","./scss/app.scss"],
+    entry:["./src/index.js"],
+    output: {
+        path: path.resolve(__dirname, "assets"),
+        publicPath: "/assets/",
+        filename: "javascript/[name].js"
+    },
     devServer: {
         historyApiFallback: true,
-        contentBase: './',
-        hot: true
+        contentBase: ["./public","./assets"],
+        hot: true,
+        port: 3000
     },
     module: {
         rules: [
@@ -28,19 +36,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        loader:"css-loader",
-                        options: {
-                            importLoaders: 1
-                        }
-
-                    },
-                    {
-                        loader: "sass-loader"
-                    }
+                    "style-loader",
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader",
+                    "sass-loader"
                 ]
             }
         ]
@@ -50,7 +50,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: devMode ? "css/app.css" : "css/app.min.css"
         })
-
     ],
     watch: true,
     watchOptions: {
