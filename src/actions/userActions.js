@@ -69,8 +69,11 @@ export function sign_out(token){
             mode:"cors",
             cache: "no-cache",
             headers: {
+                "Accept": 'application/json',
                 "Content-Type":"application/json;charset=UTF-8",
-                "JWT":token
+                "jwt":token,
+                'X-My-Custom-Header': 'value-v',
+                'Authorization': 'Bearer ' + token,
             }
         })
             .then(

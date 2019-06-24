@@ -15,8 +15,7 @@ class Topbar extends Component{
 
     logOut(event){
         event.preventDefault()
-        const payload = this.props.auth.token | ""
-        this.props.dispatch(sign_out(JSON.stringify(payload)))
+        this.props.dispatch(sign_out(this.props.auth.token | ""))
     }
 
 

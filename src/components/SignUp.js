@@ -21,7 +21,7 @@ class SignUp extends Component{
         const password = form.querySelector('[name="password"]').value
         const password_confirmation = form.querySelector('[name="password_confirmation"]').value
         const email = form.querySelector('[name="email"]').value
-        const payload = {email:email, username:username, password:password, password_confirmation:password_confirmation}
+        const payload = {email:email, nickname:username, password:password, password_confirmation:password_confirmation}
         console.table(payload)
         this.props.dispatch(sign_up(JSON.stringify(payload)))
     }
