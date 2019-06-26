@@ -30,7 +30,7 @@ class Topbar extends Component{
                         {auth.token !== "" || auth.token
                             ? <Fragment>
                                 <li><Link to={"/profile"}>Profile</Link></li>
-                                {/*<li><Link to={"themes"}>Themes</Link></li>*/}
+                                <li><Link to={"/themes"}>Themes</Link></li>
                             </Fragment>
                             : ""
                         }

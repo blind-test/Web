@@ -33,8 +33,11 @@
   },
   "dependencies": {
     "cross-fetch": "^3.0.2",
+    "foundation-sites": "^6.5.3",
+    "pretty-checkbox": "^3.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-foundation": "^0.9.6",
     "react-redux": "^6.0.1",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
