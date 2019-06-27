@@ -6,6 +6,8 @@ import {applyMiddleware, createStore} from 'redux'
 import userReducer from './reducers/userReducer'
 import {sign_up,sign_in,sign_out} from "./actions/userActions";
 import Root from "./components/Root";
+import '../scss/app.scss'
+
 const loggerMiddleware = createLogger()
 const store = createStore(
     userReducer,
@@ -35,8 +37,8 @@ console.log(store.getState())
 const unsubscribe = store.subscribe(() => console.log(store.getState()))
 
 const payload_up = {
-    email:"gogo@email.fr",
-    nickname:"gogo",
+    email:"bobo@email.fr",
+    nickname:"bobo",
     password:"123456789",
     password_confirmation:"123456789"
 
@@ -49,7 +51,7 @@ const payload_up = {
 
 // Dispatch some actions
 // store.dispatch(sign_up( JSON.stringify(payload_up) ))
-store.dispatch(sign_in( JSON.stringify(payload_in) ))
+// store.dispatch(sign_in( JSON.stringify(payload_in) ))
 // setTimeout(
 //     () => store.dispatch(sign_out( JSON.stringify() ))
 //     ,2000

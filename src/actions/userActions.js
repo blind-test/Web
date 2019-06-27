@@ -7,6 +7,14 @@ export const REQUEST_SIGN_UP = "REQUEST_SIGN_UP"
 export const RECEIVE_SIGN_UP = "RECEIVE_SIGN_UP"
 export const REQUEST_SIGN_OUT = "REQUEST_SIGN_OUT"
 export const RECEIVE_SIGN_OUT = "RECEIVE_SIGN_OUT"
+export const REQUEST_ADD_MEDIA = "REQUEST_ADD_MEDIA"
+export const RECEIVE_ADD_MEDIA = "RECEIVE_ADD_MEDIA"
+export const REQUEST_UPDATE_MEDIA = "REQUEST_UPDATE_MEDIA"
+export const RECEIVE_UPDATE_MEDIA = "RECEIVE_UPDATE_MEDIA"
+export const REQUEST_ADD_QUESTION = "REQUEST_ADD_QUESTION"
+export const RECEIVE_ADD_QUESTION = "RECEIVE_ADD_QUESTION"
+export const REQUEST_UPDATE_QUESTION = "REQUEST_UPDATE_QUESTION"
+export const RECEIVE_UPDATE_QUESTION = "RECEIVE_UPDATE_QUESTION"
 
 
 function request_sign_in(payload){
@@ -36,10 +44,14 @@ export function sign_in(payload){
             body:payload
         })
         .then(
-            response => dispatch(receive_sign_in(response.json())),
-            // error => console.error("failed signin",error)
-        )
-        .catch(error=> console.error("failed signin",error)
+            response => response.json())
+        .then(json =>{
+            if(!json.error)
+                dispatch(receive_sign_in(json))
+            else
+                console.error("Wrong auth", json.error);
+        })
+        .catch(error=> console.error("error while signin",error)
         )
     }
 }
@@ -60,17 +72,21 @@ function receive_sign_out(){
 export function sign_out(token){
     return dispatch => {
         dispatch(request_sign_out(token))
+        console.log("token",token);
         return fetch(`${API_ROOT}auth/sign_out`,{
-            method:"POST",
+            method:"DELETE",
             mode:"cors",
             cache: "no-cache",
             headers: {
+                "Accept": 'application/json',
                 "Content-Type":"application/json;charset=UTF-8",
-                "JWT":token
+                "jwt":token,
+                'X-My-Custom-Header': 'value-v',
+                'Authorization': 'Bearer ' + token,
             }
         })
             .then(
-                response => dispatch(receive_sign_out(response.json()))
+                dispatch(receive_sign_out(undefined))
             )
             .catch(error=> console.error(error)
             )
@@ -105,8 +121,14 @@ export function sign_up(payload){
             body:payload
         })
             .then(
-                response => dispatch(receive_sign_up(response.json())),
+                response => response.json()
             )
+            .then( json => {
+                if(!json.error)
+                    dispatch(receive_sign_up(json))
+                else
+                    console.error("something wrong happened while signing up", json.error);
+            })
             .catch(error=> console.error(error)
             )
     }

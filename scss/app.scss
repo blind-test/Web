@@ -1,4 +1,17 @@
 @import "foundation";
+@import "../node_modules/pretty-checkbox/src/pretty-checkbox";
+
+.pretty .state label:before, .pretty .state label:after{
+  top:4px;
+}
+
+.media-info{
+  border-top: 1px dotted black;
+  border-bottom: 1px dotted black;
+  padding: 1rem 0;
+  margin: .5rem 0;
+
+}
 
 body {
   font-size: 20px;
