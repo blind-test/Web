@@ -7,6 +7,7 @@ import userReducer from './reducers/userReducer'
 import {sign_up,sign_in,sign_out} from "./actions/userActions";
 import Root from "./components/Root";
 import '../scss/app.scss'
+// import "../assets/stylesheets/app.css"
 
 const loggerMiddleware = createLogger()
 const store = createStore(

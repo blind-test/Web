@@ -48,7 +48,7 @@ function app(state = initialState, action){
             return sign_out(state, action)
         case RECEIVE_CREATE_THEME:
         case RECEIVE_READ_THEME:
-            return create_theme(state.themes,action)
+            return add_theme(state.themes,action)
         default:
             return state
     }
