@@ -25,6 +25,8 @@ class SignIn extends Component{
     }
 
     render(){
+        const {auth} = this.props
+        // if(auth.token && auth.token.length>0) window.location.href = "/home"
         return (
             <Fragment>
 
@@ -52,7 +54,10 @@ class SignIn extends Component{
 
 function mapStateToProps(state, ownProps){
     console.log("mapStateToProps: SignIn");
-     return {}
+    return {
+        auth: state.app.auth,
+
+    };
 }
 
 export default connect(mapStateToProps)(SignIn)

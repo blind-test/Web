@@ -9,13 +9,14 @@ class Topbar extends Component{
     constructor(props){
         super(props)
         this.logOut = this.logOut.bind(this)
+
         // signale.success('Topbar')
         // console.table(props);
     }
 
     logOut(event){
         event.preventDefault()
-        this.props.dispatch(sign_out(this.props.auth.token | ""))
+        this.props.dispatch(sign_out(this.props.auth.token))
     }
 
 

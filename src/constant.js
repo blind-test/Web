@@ -7,11 +7,11 @@ export const initialState = {
         password: ''
     },
     auth:{
-        token: '5'
+        token: ''
     }
 }
 // https://blind-test-api.herokuapp.com/
-const PROTOCOL = "http"
+const PROTOCOL = "https"
 const PORT = PROTOCOL === "https" ? 443 : 80
 // const PORT = 3000
 // const DOMAIN = "192.168.56.101"

@@ -64,8 +64,9 @@ function receive_sign_out(){
 export function sign_out(token){
     return dispatch => {
         dispatch(request_sign_out(token))
+        console.log("token",token);
         return fetch(`${API_ROOT}auth/sign_out`,{
-            method:"POST",
+            method:"DELETE",
             mode:"cors",
             cache: "no-cache",
             headers: {
