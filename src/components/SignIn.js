@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
+import {Redirect} from "react-router-dom";
 
 class SignIn extends Component{
     constructor(props){
@@ -19,7 +20,6 @@ class SignIn extends Component{
         const form = event.target
         const email = form.querySelector('[name="email"]').value
         const password = form.querySelector('[name="password"]').value
-        console.table(email,password)
         const payload = {email:email, password:password}
         this.props.dispatch(sign_in(JSON.stringify(payload)))
     }
@@ -27,7 +27,7 @@ class SignIn extends Component{
     render(){
         const {auth} = this.props
         // if(auth.token && auth.token.length>0) window.location.href = "/home"
-        return (
+        return !auth.token ?
             <Fragment>
 
                 <form method={"post"} onSubmit={this.logIn} >
@@ -48,7 +48,7 @@ class SignIn extends Component{
                         </div>
                 </form>
             </Fragment>
-        )
+        : <Redirect to={"/"} />
     }
 }
 

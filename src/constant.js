@@ -1,13 +1,16 @@
 
 
 export const initialState = {
+    themes:{
+
+    },
     user:{
         email: '',
         nickname: '',
         password: ''
     },
     auth:{
-        token: ''
+        token: undefined
     }
 }
 // https://blind-test-api.herokuapp.com/

@@ -2,44 +2,48 @@ import React, {Component, Fragment} from 'react'
 import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
+import {Link, Redirect} from "react-router-dom";
+import {Button, Cell, Colors} from "react-foundation";
 
 class ThemesListing extends Component{
     constructor(props){
         super(props)
-        this.profileUpdate = this.profileUpdate.bind(this)
+        this.createTheme = this.createTheme.bind(this)
     }
 
     componentDidMount(){
         console.log("Themes List mounted");
     }
 
-    profileUpdate(event){
+    createTheme(event){
         event.preventDefault()
-        // const payload = {email:username, password:password}
-        // this.props.dispatch(sign_in(JSON.stringify(payload)))
     }
 
 
     renderOnline(){
         return (
             <Fragment>
+
                 <h1>Themes</h1>
                 <ul>
                         {
-                            [...Array(10).keys()].map(i => {
+                            [...Array(0).keys()].map(i => {
                                 return (<li key={i}><a href={`/theme/${i}`}>Theme {i+1}</a></li>)
                             })
                         }
                 </ul>
+                <Cell small={12}>
+                    <Link className={"button primary"}  to={"/theme/new"} >Create theme</Link>
+                </Cell>
             </Fragment>
         )
     }
 
     render(){
         const {auth} = this.props
-        return auth.token && auth.token!==""
+        return !!auth.token
             ? this.renderOnline()
-            : "plpop"
+            : <Redirect to={"/sign_in"} />
     }
 }
 

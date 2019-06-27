@@ -10,24 +10,17 @@ import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
 import {Redirect} from "react-router-dom";
+import {createTheme} from "../actions/themeActions";
 
-class Theme extends Component{
+class CreateTheme extends Component{
     constructor(props){
         super(props)
-        this.themeDescriptionUpdate = this.themeDescriptionUpdate.bind(this)
         this.switchPrivateValue = this.switchPrivateValue.bind(this)
-        this.addMedia = this.addMedia.bind(this)
+        this.createTheme = this.createTheme.bind(this)
     }
 
     componentDidMount(){
-        console.log("Themes mounted");
-    }
-
-
-    themeDescriptionUpdate(event){
-        event.preventDefault()
-        // const payload = {email:username, password:password}
-        // this.props.dispatch(sign_in(JSON.stringify(payload)))
+        console.log("Themes creation mounted");
     }
 
     switchPrivateValue(event){
@@ -36,14 +29,20 @@ class Theme extends Component{
         privateForm.checked = !privateForm.checked
     }
 
-    addMedia(event){
+    createTheme(event){
         event.preventDefault()
+        const {dispatch, auth} = this.props
+
+        const title = document.querySelector('[name="title"]')
+        const description = document.querySelector('[name="description"]')
+        const payload = {title: title.value, description:description.value}
+        dispatch(createTheme(payload,auth.token))
     }
 
     renderOnline(){
         return (
             <Fragment>
-                <h1>Theme</h1>
+                <h1>New theme</h1>
 
                 <form method={"post"} onSubmit={this.themeDescriptionUpdate}>
                     <Grid>
@@ -66,7 +65,7 @@ class Theme extends Component{
 
 
                         <Cell small={12}>
-                            <Button color={Colors.PRIMARY} type={"submit"} >Update theme</Button>
+                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.createTheme} >Create theme</Button>
                         </Cell>
                     </Grid>
                 </form>
@@ -91,4 +90,4 @@ function mapStateToProps(state, ownProps){
      }
 }
 
-export default connect(mapStateToProps)(Theme)
+export default connect(mapStateToProps)(CreateTheme)

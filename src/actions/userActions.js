@@ -7,6 +7,14 @@ export const REQUEST_SIGN_UP = "REQUEST_SIGN_UP"
 export const RECEIVE_SIGN_UP = "RECEIVE_SIGN_UP"
 export const REQUEST_SIGN_OUT = "REQUEST_SIGN_OUT"
 export const RECEIVE_SIGN_OUT = "RECEIVE_SIGN_OUT"
+export const REQUEST_ADD_MEDIA = "REQUEST_ADD_MEDIA"
+export const RECEIVE_ADD_MEDIA = "RECEIVE_ADD_MEDIA"
+export const REQUEST_UPDATE_MEDIA = "REQUEST_UPDATE_MEDIA"
+export const RECEIVE_UPDATE_MEDIA = "RECEIVE_UPDATE_MEDIA"
+export const REQUEST_ADD_QUESTION = "REQUEST_ADD_QUESTION"
+export const RECEIVE_ADD_QUESTION = "RECEIVE_ADD_QUESTION"
+export const REQUEST_UPDATE_QUESTION = "REQUEST_UPDATE_QUESTION"
+export const RECEIVE_UPDATE_QUESTION = "RECEIVE_UPDATE_QUESTION"
 
 
 function request_sign_in(payload){
@@ -78,14 +86,8 @@ export function sign_out(token){
             }
         })
             .then(
-                response => response.json()
+                dispatch(receive_sign_out(undefined))
             )
-            .then(json => {
-                if(!json.error)
-                    dispatch(receive_sign_out(json))
-                else
-                    console.error("an error occured while signing out", json.error);
-            })
             .catch(error=> console.error(error)
             )
     }
