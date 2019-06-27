@@ -48,7 +48,7 @@ module.exports = {
     plugins: [
         htmlPlugin,
         new MiniCssExtractPlugin({
-            filename: devMode ? "css/app.css" : "css/app.min.css"
+            filename: devMode ? "stylesheets/app.css" : "stylesheets/app.min.css"
         })
     ],
     watch: true,
