@@ -8,7 +8,7 @@ import {
     RECEIVE_SIGN_UP
 } from '../actions/userActions'
 import {initialState} from '../constant'
-import {RECEIVE_CREATE_THEME, RECEIVE_READ_THEME} from "../actions/themeActions";
+import {RECEIVE_CREATE_THEME, RECEIVE_READ_ALL_THEME, RECEIVE_READ_THEME} from "../actions/themeActions";
 
 
 
@@ -34,8 +34,17 @@ function sign_up(state = {}, action){
 function add_theme(state = {}, action){
     const id = action.payload.id
     return Object.assign({}, state, {
-        id:action.payload
+        themes: {
+            id: action.payload
+        }
     })
+}
+
+function add_themes(state = {}, action){
+    const themes = {}
+    action.payload.map(theme => themes[theme.id] = theme);
+    console.log("reducer themes",themes);
+    return {...state, themes:themes}
 }
 
 function app(state = initialState, action){
@@ -48,7 +57,9 @@ function app(state = initialState, action){
             return sign_out(state, action)
         case RECEIVE_CREATE_THEME:
         case RECEIVE_READ_THEME:
-            return add_theme(state.themes,action)
+            return add_theme(state,action)
+        case RECEIVE_READ_ALL_THEME:
+            return add_themes(state,action)
         default:
             return state
     }

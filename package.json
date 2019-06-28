@@ -5,8 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
-    "dev": "webpack --mode development",
+    "build": "webpack --mode production --open",
+    "dev": "webpack --mode development ",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test --env=jsdom",

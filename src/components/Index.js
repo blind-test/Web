@@ -19,7 +19,7 @@ class Index extends Component{
 }
 
 function mapStateToProps(state) {
-
+    console.log("index state to props",state);
     return {
         auth: state.auth,
 

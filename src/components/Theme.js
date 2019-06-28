@@ -1,8 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
-import {sign_in} from "../actions/userActions";
-import Media from "./Media";
 import * as Sizes from "react-foundation";
 import {Switch} from "react-foundation";
 import {Cell} from "react-foundation";
@@ -10,6 +7,7 @@ import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
 import {Redirect} from "react-router-dom";
+import {updateTheme} from "../actions/themeActions";
 
 class Theme extends Component{
     constructor(props){
@@ -17,17 +15,35 @@ class Theme extends Component{
         this.themeDescriptionUpdate = this.themeDescriptionUpdate.bind(this)
         this.switchPrivateValue = this.switchPrivateValue.bind(this)
         this.addMedia = this.addMedia.bind(this)
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
+        this.handleTitleChange = this.handleTitleChange.bind(this)
+        // this.setState({title:this.props.theme.title,description:this.props.theme.description})
+        this.state = {title:this.props.theme.title,description:this.props.theme.description}
     }
 
     componentDidMount(){
-        console.log("Themes mounted");
+        console.log("Theme mounted");
     }
 
+    handleDescriptionChange(event){
+        event.preventDefault()
+        this.setState({description:event.target.value})
+    }
+    handleTitleChange(event){
+        event.preventDefault()
+        this.setState({title:event.target.value})
+    }
 
     themeDescriptionUpdate(event){
         event.preventDefault()
-        // const payload = {email:username, password:password}
-        // this.props.dispatch(sign_in(JSON.stringify(payload)))
+        const {theme,auth} = this.props
+        const title = document.querySelector('[name="title"]').value
+        const description = document.querySelector('[name="description"]').value
+
+        const payload = JSON.stringify(this.state)
+        console.log("payload",payload);
+        this.props.dispatch(updateTheme(payload,theme.id,auth.token))
+        this.setState({title:"",description:""})
     }
 
     switchPrivateValue(event){
@@ -41,6 +57,7 @@ class Theme extends Component{
     }
 
     renderOnline(){
+        console.log("this state",this.state);
         return (
             <Fragment>
                 <h1>Theme</h1>
@@ -49,13 +66,13 @@ class Theme extends Component{
                     <Grid>
                         <Cell small={12} medium={6}>
                             <label>Title
-                                <input type={"text"} name={"title"} />
+                                <input type={"text"} name={"title"} value={this.state.title} onChange={this.handleTitleChange} />
                             </label>
                         </Cell>
 
                         <Cell small={12}>
                             <label>Description
-                                <textarea name={"description"} />
+                                <textarea name={"description"} value={this.state.description} onChange={this.handleDescriptionChange} />
                             </label>
                         </Cell>
 
@@ -85,10 +102,12 @@ class Theme extends Component{
 }
 
 function mapStateToProps(state, ownProps){
-
-     return {
-         auth: state.app.auth,
-     }
+    const theme_id = ownProps.match.params.id
+    console.log("theme map state",state);
+    return {
+        auth: state.app.auth,
+        theme: state.app.themes[theme_id]
+    }
 }
 
 export default connect(mapStateToProps)(Theme)
