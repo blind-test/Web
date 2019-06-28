@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
 import {Button, Cell, Colors} from "react-foundation";
+import {read_themes} from "../actions/themeActions";
 
 class ThemesListing extends Component{
     constructor(props){
@@ -13,6 +14,7 @@ class ThemesListing extends Component{
 
     componentDidMount(){
         console.log("Themes List mounted");
+        this.props.dispatch(read_themes(this.props.auth.token))
     }
 
     createTheme(event){
@@ -26,11 +28,11 @@ class ThemesListing extends Component{
 
                 <h1>Themes</h1>
                 <ul>
-                        {
-                            [...Array(0).keys()].map(i => {
-                                return (<li key={i}><a href={`/theme/${i}`}>Theme {i+1}</a></li>)
-                            })
-                        }
+                    {
+                        Object.values(this.props.themes).map(theme => {
+                            return (<li key={theme.id}><Link to={`/theme/${theme.id}`}>{theme.title}</Link></li>)
+                        })
+                    }
                 </ul>
                 <Cell small={12}>
                     <Link className={"button primary"}  to={"/theme/new"} >Create theme</Link>
@@ -51,6 +53,7 @@ function mapStateToProps(state, ownProps){
 
      return {
          auth: state.app.auth,
+         themes: state.app.themes
      }
 }
 

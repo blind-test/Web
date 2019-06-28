@@ -24,7 +24,7 @@ const Root = ({ store }) => (
                 <Route exact path="/themes" component={ThemesListing}/>
                 <Switch>
                     <Route exact path="/theme/new" component={CreateTheme}/>
-                    <Route exact path="/theme/:name" component={Theme}/>
+                    <Route exact path="/theme/:id" component={Theme}/>
                 </Switch>
             </App>
         </Router>
