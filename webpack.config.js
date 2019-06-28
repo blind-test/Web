@@ -8,10 +8,13 @@ const htmlPlugin = new HtmlWebPackPlugin({
     inject: true,
     hash: true,
 });
-const devMode = process.env.NODE_ENV !== "production";
 
-module.exports = {
-    mode: "development",
+module.exports = (env,options) => {
+    const devMode = options.mode !== "production";
+    console.log("isDev: ",devMode);
+
+    return {
+    mode: options.mode,
     entry:["./src/index.js"],
     output: {
         path: path.resolve(__dirname, "assets"),
@@ -51,9 +54,9 @@ module.exports = {
             filename: devMode ? "stylesheets/app.css" : "stylesheets/app.min.css"
         })
     ],
-    watch: true,
+    watch: devMode,
     watchOptions: {
         ignored: /node_modules/,
         aggregateTimeout: 1000
     }
-};
+}};

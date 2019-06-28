@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production --open",
+    "build": "webpack --mode production",
+    "prod": "webpack-dev-server --mode production",
     "dev": "webpack --mode development ",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
