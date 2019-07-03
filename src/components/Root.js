@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import ThemesListing from "./ThemesListing";
 import Theme from "./Theme";
 import CreateTheme from "./CreateTheme";
+import CreateMedia from "./CreateMedia";
 // import ThemesListing from "./ThemesListing";
 // import Theme from "./Theme";
 
@@ -25,6 +26,9 @@ const Root = ({ store }) => (
                 <Switch>
                     <Route exact path="/theme/new" component={CreateTheme}/>
                     <Route exact path="/theme/:id" component={Theme}/>
+                </Switch>
+                <Switch>
+                    <Route exact path={"/theme/:id/new"} component={CreateMedia} />
                 </Switch>
             </App>
         </Router>

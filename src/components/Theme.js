@@ -6,7 +6,7 @@ import {Cell} from "react-foundation";
 import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {updateTheme} from "../actions/themeActions";
 
 class Theme extends Component{
@@ -84,6 +84,7 @@ class Theme extends Component{
 
                         <Cell small={12}>
                             <Button color={Colors.PRIMARY} type={"submit"} >Update theme</Button>
+                            <Link className={"button primary"}  to={`/theme/${this.props.theme.id}/new`} >Create media</Link>
                         </Cell>
                     </Grid>
                 </form>
