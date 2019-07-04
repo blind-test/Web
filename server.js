@@ -1,9 +1,8 @@
 const express = require('express');
 const path = require('path');
-const port =  process.env.PORT || 443;
+const port = process.env.PORT || 8080;
 const app = express();
 
-console.log(__dirname);
 app.use("/assets",express.static(__dirname+"/assets"));
 
 // send the user to index html page inspite of the url
@@ -13,3 +12,4 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port);
+console.log("I'm listening on port ", port);
