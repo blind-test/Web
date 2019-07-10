@@ -8,6 +8,8 @@ import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
 import {Link, Redirect} from "react-router-dom";
 import {updateTheme} from "../actions/themeActions";
+import MediaListing from "./MediaListing";
+import {read_medias} from "../actions/mediaAction";
 
 class Theme extends Component{
     constructor(props){
@@ -89,6 +91,7 @@ class Theme extends Component{
                     </Grid>
                 </form>
 
+                <MediaListing theme={this.props.theme.id} dispatch={this.props.dispatch} />
 
             </Fragment>
         )

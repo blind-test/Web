@@ -31,12 +31,12 @@ export function createMedia(payload, idTheme, token){
         dispatch(request_create_media(payload))
         return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
             method:"POST",
-            mode:"cors",
+            mode:"no-cors",
             cache: "no-cache",
             headers: {
                 "JWT":token
             } ,
-            body:JSON.stringify("")
+            body:payload
         })
         .then(
             response => response.json())
@@ -191,7 +191,7 @@ export function read_medias(idTheme,token){
 
     return dispatch => {
         dispatch(request_read_all_medias())
-        return fetch(`${API_ROOT}themes${idTheme}/medias`,{
+        return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
             method:"GET",
             mode:"cors",
             cache: "no-cache",

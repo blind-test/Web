@@ -6,7 +6,7 @@ export const PrettyColorShape = Object.freeze({CURVE: "curve", ROUND:"round"});
 
 export const Radio = ({type, shape, name, label, onChange, ...rest}) => (
     <div className={`pretty p-default p-${shape}`}>
-        <input type="radio" name={name} onChange={onChange} kind={kind} {...rest} />
+        <input type="radio" name={name} onChange={onChange} {...rest} />
         <div className={`state p-${type}-o`}>
             <label>{label}</label>
         </div>

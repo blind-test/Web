@@ -28,7 +28,7 @@ class CreateMedia extends Component{
         event.preventDefault()
         var form = new FormData()
         form.append("title",this.state.title)
-        form.append("kind",this.state.kind)
+        // form.append("kind",this.state.kind)
         var file = document.getElementById('mediaFile').files[0]
         form.append("file",file)
         for(var pair of form.entries())
@@ -63,15 +63,6 @@ class CreateMedia extends Component{
                         Type
                     </Cell>
 
-                    <Cell small={1}>
-                        <Radio type={PrettyColorType.PRIMARY} shape={PrettyColorShape.ROUND} kind={"movie"} name={"type_media"} label={"Movie"} onChange={this.updateKind}  />
-                    </Cell>
-                    <Cell small={1}>
-                        <Radio type={PrettyColorType.PRIMARY} shape={PrettyColorShape.ROUND} kind={"picture"} name={"type_media"} label={"Image"} onChange={this.updateKind}  />
-                    </Cell>
-                    <Cell small={1}>
-                        <Radio type={PrettyColorType.PRIMARY} shape={PrettyColorShape.ROUND} kind={"music"} name={"type_media"} label={"Music"} onChange={this.updateKind} />
-                    </Cell>
                     <Cell small={12} >
                         <FileUploader id={"mediaFile"} label={"Upload media"}/>
                     </Cell>
