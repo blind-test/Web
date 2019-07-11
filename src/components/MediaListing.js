@@ -5,17 +5,24 @@ import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
 import {Button, Cell, Colors} from "react-foundation";
 import {read_themes} from "../actions/themeActions";
-import {read_medias} from "../actions/mediaAction";
+import {deleteMedia, read_medias} from "../actions/mediaAction";
 
 class MediaListing extends Component{
+
     constructor(props){
         super(props)
+        this.deleteMedia = this.deleteMedia.bind(this)
     }
 
     componentDidMount(){
         this.props.dispatch(read_medias(this.props.theme.id, this.props.auth.token))
     }
 
+    deleteMedia(event){
+        const mediaId = event.target.getAttribute("media")
+        console.log("delete",event.target.getAttribute("media"));
+        this.props.dispatch(deleteMedia(this.props.theme.id, mediaId, this.props.auth.token))
+    }
 
     renderOnline(){
         console.log("MEdia list",this.props);
@@ -26,7 +33,10 @@ class MediaListing extends Component{
                 <ul>
                     {
                         Object.values(this.props.medias).map(media => {
-                            return (<li key={media.id}><Link to={`/theme/${media.theme_id}/media/${media.id}`}>{media.title}</Link></li>)
+                            return (<li key={media.id}>
+                                <Link to={`/theme/${media.theme_id}/media/${media.id}`}>{media.title}</Link>
+                                <Button color={Colors.ALERT} onClick={this.deleteMedia} media={media.id}>Delete</Button>
+                            </li>)
                         })
                     }
                 </ul>

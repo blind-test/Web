@@ -119,7 +119,6 @@ export function deleteTheme(payload,id,token){
                 "Content-Type":"application/json;charset=UTF-8",
                 "JWT":token
             } ,
-            body:payload
         })
             .then(
                 response => response.json())

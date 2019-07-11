@@ -107,9 +107,9 @@ function receive_delete_media(payload){
 }
 
 
-export function deleteMedia(payload, idTheme, idMedia, token){
+export function deleteMedia(idTheme, idMedia, token){
     return dispatch => {
-        dispatch(request_delete_media(payload))
+        dispatch(request_delete_media(undefined))
         return fetch(`${API_ROOT}themes/${idTheme}/medias/${idMedia}`,{
             method:"DELETE",
             mode:"cors",
@@ -117,8 +117,8 @@ export function deleteMedia(payload, idTheme, idMedia, token){
             headers: {
                 "Content-Type":"application/json;charset=UTF-8",
                 "JWT":token
-            } ,
-            body:payload
+            },
+            body: JSON.stringify("")
         })
             .then(
                 response => response.json())
