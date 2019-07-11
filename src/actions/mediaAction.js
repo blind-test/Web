@@ -1,49 +1,48 @@
 import fetch from 'cross-fetch'
 import {API_ROOT} from "../constant";
 
-export const REQUEST_READ_THEME = "REQUEST_READ_THEME"
-export const RECEIVE_READ_THEME = "RECEIVE_READ_THEME"
-export const REQUEST_READ_ALL_THEME = "REQUEST_READ_ALL_THEME"
-export const RECEIVE_READ_ALL_THEME = "RECEIVE_READ_ALL_THEME"
-export const REQUEST_CREATE_THEME = "REQUEST_CREATE_THEME"
-export const RECEIVE_CREATE_THEME = "RECEIVE_CREATE_THEME"
-export const REQUEST_UPDATE_THEME = "REQUEST_UPDATE_THEME"
-export const RECEIVE_UPDATE_THEME = "RECEIVE_UPDATE_THEME"
-export const REQUEST_DELETE_THEME = "REQUEST_DELETE_THEME"
-export const RECEIVE_DELETE_THEME = "RECEIVE_DELETE_THEME"
+export const REQUEST_READ_MEDIA = "REQUEST_READ_MEDIA"
+export const RECEIVE_READ_MEDIA = "RECEIVE_READ_MEDIA"
+export const REQUEST_READ_ALL_MEDIA = "REQUEST_READ_ALL_MEDIA"
+export const RECEIVE_READ_ALL_MEDIA = "RECEIVE_READ_ALL_MEDIA"
+export const REQUEST_CREATE_MEDIA = "REQUEST_CREATE_MEDIA"
+export const RECEIVE_CREATE_MEDIA = "RECEIVE_CREATE_MEDIA"
+export const REQUEST_UPDATE_MEDIA = "REQUEST_UPDATE_MEDIA"
+export const RECEIVE_UPDATE_MEDIA = "RECEIVE_UPDATE_MEDIA"
+export const REQUEST_DELETE_MEDIA = "REQUEST_DELETE_MEDIA"
+export const RECEIVE_DELETE_MEDIA = "RECEIVE_DELETE_MEDIA"
 
-function request_create_theme(payload){
+function request_create_media(payload){
     return {
-        type: REQUEST_CREATE_THEME,
+        type: REQUEST_CREATE_MEDIA,
         payload:payload
     }
 }
 
-function receive_create_theme(payload){
+function receive_create_media(payload){
     return {
-        type: RECEIVE_CREATE_THEME,
+        type: RECEIVE_CREATE_MEDIA,
         payload:payload
     }
 }
 
-export function createTheme(payload,token){
+export function createMedia(payload, idTheme, token){
     return dispatch => {
-        dispatch(request_create_theme(payload))
-        return fetch(`${API_ROOT}themes`,{
+        dispatch(request_create_media(payload))
+        return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
             method:"POST",
-            mode:"cors",
+            mode:"no-cors",
             cache: "no-cache",
             headers: {
-                "Content-Type":"application/json;charset=UTF-8",
                 "JWT":token
             } ,
-            body:JSON.stringify(payload)
+            body:payload
         })
         .then(
             response => response.json())
         .then(json =>{
             if(!json.error)
-                dispatch(receive_create_theme(json))
+                dispatch(receive_create_media(json))
             else
                 console.error("json_error", json.error);
         })
@@ -52,39 +51,39 @@ export function createTheme(payload,token){
     }
 }
 
-function request_update_theme(payload){
+function request_update_media(payload){
     return {
-        type: REQUEST_UPDATE_THEME,
+        type: REQUEST_UPDATE_MEDIA,
         payload: payload
     }
 }
 
-function receive_update_theme(payload){
+function receive_update_media(payload){
     return {
-        type: RECEIVE_UPDATE_THEME,
+        type: RECEIVE_UPDATE_MEDIA,
         payload: payload
     }
 }
 
 
-export function updateTheme(payload,id,token){
+export function updateMedia(payload, idTheme, idMedia, token){
     return dispatch => {
-        dispatch(request_update_theme(payload))
-        return fetch(`${API_ROOT}themes/${id}`,{
+        dispatch(request_update_media(payload))
+        return fetch(`${API_ROOT}themes/${idTheme}/medias/${idMedia}`,{
             method:"PUT",
             mode:"cors",
             cache: "no-cache",
             headers: {
                 "Content-Type":"application/json;charset=UTF-8",
                 "JWT":token
-            } ,
+            },
             body:payload
         })
             .then(
                 response => response.json())
             .then(json =>{
                 if(!json.error)
-                    dispatch(receive_update_theme(json))
+                    dispatch(receive_update_media(json))
                 else
                     console.error("json_error", json.error);
             })
@@ -93,38 +92,39 @@ export function updateTheme(payload,id,token){
     }
 }
 
-function request_delete_theme(payload){
+function request_delete_media(payload){
     return {
-        type:REQUEST_DELETE_THEME,
+        type:REQUEST_DELETE_MEDIA,
         payload:payload
     }
 }
 
-function receive_delete_theme(payload){
+function receive_delete_media(payload){
     return {
-        type:RECEIVE_DELETE_THEME,
+        type:RECEIVE_DELETE_MEDIA,
         payload:payload
     }
 }
 
 
-export function deleteTheme(payload,id,token){
+export function deleteMedia(idTheme, idMedia, token){
     return dispatch => {
-        dispatch(request_delete_theme(payload))
-        return fetch(`${API_ROOT}themes/${id}`,{
+        dispatch(request_delete_media(undefined))
+        return fetch(`${API_ROOT}themes/${idTheme}/medias/${idMedia}`,{
             method:"DELETE",
             mode:"cors",
             cache: "no-cache",
             headers: {
                 "Content-Type":"application/json;charset=UTF-8",
                 "JWT":token
-            } ,
+            },
+            body: JSON.stringify("")
         })
             .then(
                 response => response.json())
             .then(json =>{
                 if(!json.error)
-                    dispatch(receive_delete_theme(json))
+                    dispatch(receive_delete_media(json))
                 else
                     console.error("json_error", json.error);
             })
@@ -133,25 +133,25 @@ export function deleteTheme(payload,id,token){
     }
 }
 
-function request_read_theme(payload){
+function request_read_media(payload){
     return {
-        type: REQUEST_READ_THEME,
+        type: REQUEST_READ_MEDIA,
         payload: payload
     }
 }
 
-function receive_read_theme(payload){
+function receive_read_media(payload){
     return {
-        type: RECEIVE_READ_THEME,
+        type: RECEIVE_READ_MEDIA,
         payload: payload
     }
 }
 
-export function read_theme(id, token){
+export function read_media(idTheme, idMedia, token){
 
     return dispatch => {
-        dispatch(request_read_theme(id))
-        return fetch(`${API_ROOT}themes/${id}`,{
+        dispatch(request_read_media(id))
+        return fetch(`${API_ROOT}themes/${idTheme}/medias/${idMedia}`,{
             method:"GET",
             mode:"cors",
             cache: "no-cache",
@@ -164,7 +164,7 @@ export function read_theme(id, token){
                 response => response.json())
             .then(json =>{
                 if(!json.error)
-                    dispatch(receive_read_theme(json))
+                    dispatch(receive_read_media(json))
                 else
                     console.error("json_error", json.error);
             })
@@ -173,25 +173,25 @@ export function read_theme(id, token){
     }
 }
 
-function request_read_all_themes(){
+function request_read_all_medias(){
     return {
-        type: REQUEST_READ_ALL_THEME,
+        type: REQUEST_READ_ALL_MEDIA,
         payload:undefined
     }
 }
 
-function receive_read_all_themes(payload){
+function receive_read_all_medias(payload){
     return {
-        type: RECEIVE_READ_ALL_THEME,
+        type: RECEIVE_READ_ALL_MEDIA,
         payload:payload
     }
 }
 
-export function read_themes(token){
+export function read_medias(idTheme,token){
 
     return dispatch => {
-        dispatch(request_read_all_themes())
-        return fetch(`${API_ROOT}themes`,{
+        dispatch(request_read_all_medias())
+        return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
             method:"GET",
             mode:"cors",
             cache: "no-cache",
@@ -205,7 +205,7 @@ export function read_themes(token){
                 response => response.json())
             .then(json =>{
                 if(!json.error)
-                    dispatch(receive_read_all_themes(json))
+                    dispatch(receive_read_all_medias(json))
                 else
                     console.error("json_error", json.error);
             })

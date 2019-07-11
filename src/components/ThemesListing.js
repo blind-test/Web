@@ -4,12 +4,14 @@ import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
 import {Button, Cell, Colors} from "react-foundation";
-import {read_themes} from "../actions/themeActions";
+import {deleteTheme, read_themes} from "../actions/themeActions";
+import {deleteMedia} from "../actions/mediaAction";
 
 class ThemesListing extends Component{
     constructor(props){
         super(props)
         this.createTheme = this.createTheme.bind(this)
+        this.deleteTheme = this.deleteTheme.bind(this)
     }
 
     componentDidMount(){
@@ -22,6 +24,13 @@ class ThemesListing extends Component{
     }
 
 
+    deleteTheme(event){
+        const themeId = event.target.getAttribute("theme")
+        console.log("delete",themeId);
+        this.props.dispatch(deleteTheme("",themeId, this.props.auth.token))
+    }
+
+
     renderOnline(){
         return (
             <Fragment>
@@ -30,7 +39,10 @@ class ThemesListing extends Component{
                 <ul>
                     {
                         Object.values(this.props.themes).map(theme => {
-                            return (<li key={theme.id}><Link to={`/theme/${theme.id}`}>{theme.title}</Link></li>)
+                            return (<li key={theme.id}>
+                                <Link to={`/theme/${theme.id}`}><Button color={Colors.SUCCESS}> {theme.title}</Button></Link>
+                                <Button color={Colors.ALERT} onClick={this.deleteTheme} theme={theme.id}>Delete</Button>
+                            </li>)
                         })
                     }
                 </ul>

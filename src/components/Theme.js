@@ -6,8 +6,10 @@ import {Cell} from "react-foundation";
 import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {updateTheme} from "../actions/themeActions";
+import MediaListing from "./MediaListing";
+import {read_medias} from "../actions/mediaAction";
 
 class Theme extends Component{
     constructor(props){
@@ -84,10 +86,12 @@ class Theme extends Component{
 
                         <Cell small={12}>
                             <Button color={Colors.PRIMARY} type={"submit"} >Update theme</Button>
+                            <Link className={"button primary"}  to={`/theme/${this.props.theme.id}/new`} >Create media</Link>
                         </Cell>
                     </Grid>
                 </form>
 
+                <MediaListing theme={this.props.theme.id} dispatch={this.props.dispatch} />
 
             </Fragment>
         )

@@ -2,16 +2,15 @@ import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 
 
-export const FileUploader = ({id, label, click}) => (
+export const FileUploader = ({id, label, ...rest}) => (
     <Fragment>
         <label>{label}</label>
-        <input type="file" id={id} />
+        <input type="file" id={id} {...rest} />
     </Fragment>
 )
 
 
 FileUploader.propTypes = {
     id: PropTypes.string,
-    click: PropTypes.func,
     label: PropTypes.string.isRequired
 }

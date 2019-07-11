@@ -9,6 +9,7 @@ import {
 } from '../actions/userActions'
 import {initialState} from '../constant'
 import {RECEIVE_CREATE_THEME, RECEIVE_READ_ALL_THEME, RECEIVE_READ_THEME} from "../actions/themeActions";
+import {RECEIVE_READ_ALL_MEDIA} from "../actions/mediaAction";
 
 
 
@@ -47,6 +48,16 @@ function add_themes(state = {}, action){
     return {...state, themes:themes}
 }
 
+function add_medias(state = {}, action){
+    const medias = {}
+    const theme = action.payload.count > 0 ? action.payload[0] : undefined
+
+    action.payload.map(media => medias[media.id] = media);
+    console.log("reducer medias",medias);
+
+    return {...state, medias:medias  }
+}
+
 function app(state = initialState, action){
     switch (action.type) {
         case RECEIVE_SIGN_IN:
@@ -60,6 +71,8 @@ function app(state = initialState, action){
             return add_theme(state,action)
         case RECEIVE_READ_ALL_THEME:
             return add_themes(state,action)
+        case RECEIVE_READ_ALL_MEDIA:
+            return add_medias(state,action)
         default:
             return state
     }
