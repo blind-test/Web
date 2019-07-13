@@ -8,8 +8,14 @@ import {
     RECEIVE_SIGN_UP
 } from '../actions/userActions'
 import {initialState} from '../constant'
-import {RECEIVE_CREATE_THEME, RECEIVE_READ_ALL_THEME, RECEIVE_READ_THEME} from "../actions/themeActions";
+import {
+    RECEIVE_CREATE_THEME,
+    RECEIVE_READ_ALL_THEME,
+    RECEIVE_READ_THEME,
+    RECEIVE_UPDATE_THEME
+} from "../actions/themeActions";
 import {RECEIVE_READ_ALL_MEDIA} from "../actions/mediaAction";
+import {RECEIVE_READ_ALL_QUESTION} from "../actions/questionAction";
 
 
 
@@ -60,6 +66,16 @@ function add_medias(state = {}, action){
     return {...state, medias:medias  }
 }
 
+function add_question(state = {}, action){
+
+}
+
+function add_questions(state = {}, action){
+    const questions = {}
+    action.payload.map(question => questions[question.id] = question)
+    return {...state,questions:questions}
+}
+
 function app(state = initialState, action){
     switch (action.type) {
         case RECEIVE_SIGN_IN:
@@ -69,12 +85,15 @@ function app(state = initialState, action){
         case RECEIVE_SIGN_OUT:
             return sign_out(state, action)
         case RECEIVE_CREATE_THEME:
+        case RECEIVE_UPDATE_THEME:
         case RECEIVE_READ_THEME:
             return add_theme(state,action)
         case RECEIVE_READ_ALL_THEME:
             return add_themes(state,action)
         case RECEIVE_READ_ALL_MEDIA:
             return add_medias(state,action)
+        case RECEIVE_READ_ALL_QUESTION:
+            return add_questions(state,action)
         default:
             return state
     }
