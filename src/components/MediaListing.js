@@ -5,7 +5,7 @@ import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
 import {Button, Cell, Colors} from "react-foundation";
 import {read_themes} from "../actions/themeActions";
-import {deleteMedia, read_medias} from "../actions/mediaAction";
+import {delete_media, read_medias} from "../actions/mediaAction";
 
 class MediaListing extends Component{
 
@@ -21,7 +21,7 @@ class MediaListing extends Component{
     deleteMedia(event){
         const mediaId = event.target.getAttribute("media")
         console.log("delete",event.target.getAttribute("media"));
-        this.props.dispatch(deleteMedia(this.props.theme.id, mediaId, this.props.auth.token))
+        this.props.dispatch(delete_media(this.props.theme.id, mediaId, this.props.auth.token))
     }
 
     renderOnline(){
@@ -34,7 +34,7 @@ class MediaListing extends Component{
                     {
                         Object.values(this.props.medias).map(media => {
                             return (<li key={media.id}>
-                                <Link to={`/theme/${media.theme_id}/media/${media.id}`}>{media.title}</Link>
+                                <Link to={`/theme/${media.theme_id}/media/${media.id}`}><Button color={Colors.SUCCESS}>{media.title}</Button></Link>
                                 <Button color={Colors.ALERT} onClick={this.deleteMedia} media={media.id}>Delete</Button>
                             </li>)
                         })

@@ -26,7 +26,7 @@ function receive_create_media(payload){
     }
 }
 
-export function createMedia(payload, idTheme, token){
+export function create_media(payload, idTheme, token){
     return dispatch => {
         dispatch(request_create_media(payload))
         return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
@@ -66,7 +66,7 @@ function receive_update_media(payload){
 }
 
 
-export function updateMedia(payload, idTheme, idMedia, token){
+export function update_media(payload, idTheme, idMedia, token){
     return dispatch => {
         dispatch(request_update_media(payload))
         return fetch(`${API_ROOT}themes/${idTheme}/medias/${idMedia}`,{
@@ -107,7 +107,7 @@ function receive_delete_media(payload){
 }
 
 
-export function deleteMedia(idTheme, idMedia, token){
+export function delete_media(idTheme, idMedia, token){
     return dispatch => {
         dispatch(request_delete_media(undefined))
         return fetch(`${API_ROOT}themes/${idTheme}/medias/${idMedia}`,{

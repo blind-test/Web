@@ -3,9 +3,9 @@ import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
-import {Button, Cell, Colors} from "react-foundation";
+import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Inline} from "react-foundation";
 import {deleteTheme, read_themes} from "../actions/themeActions";
-import {deleteMedia} from "../actions/mediaAction";
+import {delete_media} from "../actions/mediaAction";
 
 class ThemesListing extends Component{
     constructor(props){
@@ -34,7 +34,10 @@ class ThemesListing extends Component{
     renderOnline(){
         return (
             <Fragment>
-
+                <Breadcrumbs>
+                    <BreadcrumbItem><Link to={"/"}>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem>Themes</BreadcrumbItem>
+                </Breadcrumbs>
                 <h1>Themes</h1>
                 <ul>
                     {

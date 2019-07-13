@@ -36,7 +36,9 @@ function add_theme(state = {}, action){
     const id = action.payload.id
     return Object.assign({}, state, {
         themes: {
-            id: action.payload
+            ...state.themes,
+            [id]: action.payload
+
         }
     })
 }

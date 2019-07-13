@@ -1,6 +1,9 @@
 
 
 export const initialState = {
+    questions:{
+
+    },
     medias:{
 
     },

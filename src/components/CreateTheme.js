@@ -44,7 +44,7 @@ class CreateTheme extends Component{
             <Fragment>
                 <h1>New theme</h1>
 
-                <form method={"post"} onSubmit={this.themeDescriptionUpdate}>
+                <form method={"post"} onSubmit={this.themeUpdate}>
                     <Grid>
                         <Cell small={12} medium={6}>
                             <label>Title
