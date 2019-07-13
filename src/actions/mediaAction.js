@@ -31,7 +31,7 @@ export function create_media(payload, idTheme, token){
         dispatch(request_create_media(payload))
         return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
             method:"POST",
-            mode:"no-cors",
+            mode:"cors",
             cache: "no-cache",
             headers: {
                 "JWT":token
@@ -44,7 +44,7 @@ export function create_media(payload, idTheme, token){
             if(!json.error)
                 dispatch(receive_create_media(json))
             else
-                console.error("json_error", json.error);
+                throw json
         })
         .catch(error=> console.error("error",error)
         )
@@ -85,7 +85,7 @@ export function update_media(payload, idTheme, idMedia, token){
                 if(!json.error)
                     dispatch(receive_update_media(json))
                 else
-                    console.error("json_error", json.error);
+                    throw json
             })
             .catch(error=> console.error("error",error)
             )
@@ -121,12 +121,9 @@ export function delete_media(idTheme, idMedia, token){
             body: JSON.stringify("")
         })
             .then(
-                response => response.json())
-            .then(json =>{
-                if(!json.error)
-                    dispatch(receive_delete_media(json))
-                else
-                    console.error("json_error", json.error);
+                response => response.text())
+            .then(text =>{
+                    dispatch(receive_delete_media(idMedia))
             })
             .catch(error=> console.error("error",error)
             )
@@ -166,7 +163,7 @@ export function read_media(idTheme, idMedia, token){
                 if(!json.error)
                     dispatch(receive_read_media(json))
                 else
-                    console.error("json_error", json.error);
+                    throw json
             })
             .catch(error=> console.error("error",error)
             )

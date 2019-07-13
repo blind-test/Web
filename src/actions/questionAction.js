@@ -121,12 +121,9 @@ export function delete_question(idMedia, idQuestion, token){
             }
         })
             .then(
-                response => response.json())
-            .then(json =>{
-                if(!json.error)
-                    dispatch(receive_delete_question(json))
-                else
-                    throw json
+                response => response.text())
+            .then(text =>{
+                    dispatch(receive_delete_question(idQuestion))
             })
             .catch(error=> console.error("error",error)
             )

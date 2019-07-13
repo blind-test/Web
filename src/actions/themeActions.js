@@ -121,12 +121,9 @@ export function delete_theme(payload, id, token){
             } ,
         })
             .then(
-                response => response.json())
-            .then(json =>{
-                if(!json.error)
-                    dispatch(receive_delete_theme(json))
-                else
-                    console.error("json_error", json.error);
+                response => response.text())
+            .then(text =>{
+                    dispatch(receive_delete_theme(id))
             })
             .catch(error=> console.error("error",error)
             )
