@@ -10,7 +10,7 @@ import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
 import {Redirect} from "react-router-dom";
-import {createTheme} from "../actions/themeActions";
+import {create_theme} from "../actions/themeActions";
 
 class CreateTheme extends Component{
     constructor(props){
@@ -36,7 +36,7 @@ class CreateTheme extends Component{
         const title = document.querySelector('[name="title"]')
         const description = document.querySelector('[name="description"]')
         const payload = {title: title.value, description:description.value}
-        dispatch(createTheme(payload,auth.token))
+        dispatch(create_theme(payload,auth.token))
     }
 
     renderOnline(){

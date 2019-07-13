@@ -26,7 +26,7 @@ function receive_create_theme(payload){
     }
 }
 
-export function createTheme(payload,token){
+export function create_theme(payload, token){
     return dispatch => {
         dispatch(request_create_theme(payload))
         return fetch(`${API_ROOT}themes`,{
@@ -67,7 +67,7 @@ function receive_update_theme(payload){
 }
 
 
-export function updateTheme(payload,id,token){
+export function update_theme(payload, id, token){
     return dispatch => {
         dispatch(request_update_theme(payload))
         return fetch(`${API_ROOT}themes/${id}`,{
@@ -108,7 +108,7 @@ function receive_delete_theme(payload){
 }
 
 
-export function deleteTheme(payload,id,token){
+export function delete_theme(payload, id, token){
     return dispatch => {
         dispatch(request_delete_theme(payload))
         return fetch(`${API_ROOT}themes/${id}`,{

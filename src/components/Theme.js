@@ -7,7 +7,7 @@ import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
 import {Link, Redirect} from "react-router-dom";
-import {updateTheme} from "../actions/themeActions";
+import {update_theme} from "../actions/themeActions";
 import MediaListing from "./MediaListing";
 import {read_medias} from "../actions/mediaAction";
 import {Breadcrumbs} from "react-foundation";
@@ -42,7 +42,7 @@ class Theme extends Component{
         const {theme,auth} = this.props
 
         const payload = JSON.stringify(this.state)
-        this.props.dispatch(updateTheme(payload,theme.id,auth.token))
+        this.props.dispatch(update_theme(payload,theme.id,auth.token))
     }
 
     switchPrivateValue(event){

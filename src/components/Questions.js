@@ -7,7 +7,13 @@ import {Button, Cell, Colors, Grid} from "react-foundation";
 import {read_themes} from "../actions/themeActions";
 import {read_medias} from "../actions/mediaAction";
 import {CheckBox, PrettyColorShape, PrettyColorType} from "../helper/prettyCheckbox";
-import {create_question, delete_question, update_question} from "../actions/questionAction";
+import {
+    create_question,
+    delete_question,
+    read_question,
+    read_questions,
+    update_question
+} from "../actions/questionAction";
 
 class Questions extends Component{
     constructor(props){
