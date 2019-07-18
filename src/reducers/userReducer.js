@@ -8,8 +8,19 @@ import {
     RECEIVE_SIGN_UP
 } from '../actions/userActions'
 import {initialState} from '../constant'
-import {RECEIVE_CREATE_THEME, RECEIVE_READ_ALL_THEME, RECEIVE_READ_THEME} from "../actions/themeActions";
-import {RECEIVE_READ_ALL_MEDIA} from "../actions/mediaAction";
+import {
+    RECEIVE_CREATE_THEME, RECEIVE_DELETE_THEME,
+    RECEIVE_READ_ALL_THEME,
+    RECEIVE_READ_THEME,
+    RECEIVE_UPDATE_THEME
+} from "../actions/themeActions";
+import {RECEIVE_DELETE_MEDIA, RECEIVE_READ_ALL_MEDIA} from "../actions/mediaAction";
+import {
+    RECEIVE_CREATE_QUESTION,
+    RECEIVE_DELETE_QUESTION,
+    RECEIVE_READ_ALL_QUESTION,
+    RECEIVE_UPDATE_QUESTION
+} from "../actions/questionAction";
 
 
 
@@ -36,7 +47,9 @@ function add_theme(state = {}, action){
     const id = action.payload.id
     return Object.assign({}, state, {
         themes: {
-            id: action.payload
+            ...state.themes,
+            [id]: action.payload
+
         }
     })
 }
@@ -58,6 +71,41 @@ function add_medias(state = {}, action){
     return {...state, medias:medias  }
 }
 
+function add_question(state = {}, action){
+    const id = action.payload.id
+    return Object.assign({}, state, {
+        questions: {
+            ...state.questions,
+            [id]: action.payload
+
+        }
+    })
+}
+
+function remove_theme(state = {}, action){
+    const themes = {...state.themes}
+    delete themes[action.payload]
+    return {...state, themes:themes}
+}
+
+function remove_media(state = {}, action){
+    const medias = {...state.medias}
+    delete medias[action.payload]
+    return {...state, medias:medias}
+}
+
+function remove_question(state = {}, action){
+    const questions = {...state.questions}
+    delete questions[action.payload]
+    return {...state, questions:questions}
+}
+
+function add_questions(state = {}, action){
+    const questions = {}
+    action.payload.map(question => questions[question.id] = question)
+    return {...state,questions:questions}
+}
+
 function app(state = initialState, action){
     switch (action.type) {
         case RECEIVE_SIGN_IN:
@@ -67,12 +115,24 @@ function app(state = initialState, action){
         case RECEIVE_SIGN_OUT:
             return sign_out(state, action)
         case RECEIVE_CREATE_THEME:
+        case RECEIVE_UPDATE_THEME:
         case RECEIVE_READ_THEME:
             return add_theme(state,action)
         case RECEIVE_READ_ALL_THEME:
             return add_themes(state,action)
+        case RECEIVE_DELETE_THEME:
+            return remove_theme(state,action)
+        case RECEIVE_DELETE_MEDIA:
+            return remove_media(state,action)
         case RECEIVE_READ_ALL_MEDIA:
             return add_medias(state,action)
+        case RECEIVE_DELETE_QUESTION:
+            return remove_question(state,action)
+        case RECEIVE_UPDATE_QUESTION:
+        case RECEIVE_CREATE_QUESTION:
+            return add_question(state,action)
+        case RECEIVE_READ_ALL_QUESTION:
+            return add_questions(state,action)
         default:
             return state
     }

@@ -7,14 +7,16 @@ import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
 import {Link, Redirect} from "react-router-dom";
-import {updateTheme} from "../actions/themeActions";
+import {update_theme} from "../actions/themeActions";
 import MediaListing from "./MediaListing";
 import {read_medias} from "../actions/mediaAction";
+import {Breadcrumbs} from "react-foundation";
+import {BreadcrumbItem} from "react-foundation";
 
 class Theme extends Component{
     constructor(props){
         super(props)
-        this.themeDescriptionUpdate = this.themeDescriptionUpdate.bind(this)
+        this.themeUpdate = this.themeUpdate.bind(this)
         this.switchPrivateValue = this.switchPrivateValue.bind(this)
         this.addMedia = this.addMedia.bind(this)
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
@@ -24,7 +26,6 @@ class Theme extends Component{
     }
 
     componentDidMount(){
-        console.log("Theme mounted");
     }
 
     handleDescriptionChange(event){
@@ -36,16 +37,12 @@ class Theme extends Component{
         this.setState({title:event.target.value})
     }
 
-    themeDescriptionUpdate(event){
+    themeUpdate(event){
         event.preventDefault()
         const {theme,auth} = this.props
-        const title = document.querySelector('[name="title"]').value
-        const description = document.querySelector('[name="description"]').value
 
         const payload = JSON.stringify(this.state)
-        console.log("payload",payload);
-        this.props.dispatch(updateTheme(payload,theme.id,auth.token))
-        this.setState({title:"",description:""})
+        this.props.dispatch(update_theme(payload,theme.id,auth.token))
     }
 
     switchPrivateValue(event){
@@ -59,12 +56,16 @@ class Theme extends Component{
     }
 
     renderOnline(){
-        console.log("this state",this.state);
         return (
             <Fragment>
+                <Breadcrumbs>
+                    <BreadcrumbItem><Link to={"/"}>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem><Link to={"/themes"}>Themes</Link></BreadcrumbItem>
+                    <BreadcrumbItem>{this.props.theme.title}</BreadcrumbItem>
+                </Breadcrumbs>
                 <h1>Theme</h1>
 
-                <form method={"post"} onSubmit={this.themeDescriptionUpdate}>
+                <form method={"post"} onSubmit={this.themeUpdate}>
                     <Grid>
                         <Cell small={12} medium={6}>
                             <label>Title
@@ -78,14 +79,14 @@ class Theme extends Component{
                             </label>
                         </Cell>
 
-                        <Cell small={6} medium={6}>
+                        <Cell small={6} medium={6} hidden>
                             <p>Private</p>
                             <Switch input={{defaultChecked:false, name:'private'}} id={"privateSwitch"} size={Sizes.SMALL} active={{ text: 'Yes' }} inactive={{ text: 'No' }}/>
                         </Cell>
 
 
                         <Cell small={12}>
-                            <Button color={Colors.PRIMARY} type={"submit"} >Update theme</Button>
+                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.themeUpdate} >Update theme</Button>
                             <Link className={"button primary"}  to={`/theme/${this.props.theme.id}/new`} >Create media</Link>
                         </Cell>
                     </Grid>
@@ -98,20 +99,24 @@ class Theme extends Component{
     }
 
     render(){
-        const {auth} = this.props
-        return !!auth.token
+        const {redirect_to} = this.props
+        return !redirect_to
             ? this.renderOnline()
-            : <Redirect to={"/sign_in"} />
+            : <Redirect to={this.props.redirect_to} />
     }
 }
 
 function mapStateToProps(state, ownProps){
     const theme_id = ownProps.match.params.id
-    console.log("theme map state",state);
-    return {
+    const props = {
         auth: state.app.auth,
         theme: state.app.themes[theme_id]
     }
+    if(!state.app.auth.token)
+        return {redirect_to: "/sign_in"}
+    if(!props.theme) ownProps.history.push("/themes")
+    else
+        return props
 }
 
 export default connect(mapStateToProps)(Theme)

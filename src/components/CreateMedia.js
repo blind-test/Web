@@ -5,7 +5,7 @@ import {sign_in} from "../actions/userActions";
 import {Button, Cell, Colors, Grid} from "react-foundation";
 import {PrettyColorShape, PrettyColorType, Radio} from "../helper/prettyCheckbox";
 import {FileUploader} from "../helper/FileUploader";
-import {createMedia} from "../actions/mediaAction";
+import {create_media} from "../actions/mediaAction";
 
 class CreateMedia extends Component{
     constructor(props){
@@ -33,7 +33,7 @@ class CreateMedia extends Component{
         form.append("file",file)
         for(var pair of form.entries())
             console.log(pair[0],": ",pair[1]);
-        this.props.dispatch(createMedia(form,theme.id, auth.token))
+        this.props.dispatch(create_media(form,theme.id, auth.token))
 
     }
 
