@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 export const FileUploader = ({id, label, ...rest}) => (
     <Fragment>
         <label>{label}</label>
-        <input type="file" id={id} {...rest} />
+        <input type="file" id={id} {...rest} accept={"audio/mp3, audio/wav, image/png, image/jpeg, video/mp4"} />
     </Fragment>
 )
 
