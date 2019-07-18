@@ -25,7 +25,7 @@ class Questions extends Component{
         this.changeQuestionContent = this.changeQuestionContent.bind(this)
         this.deleteAnswer = this.deleteAnswer.bind(this)
         this.deleteQuestion = this.deleteQuestion.bind(this)
-        this.state = {answers: [{answer:"A",value:false},{answer:"B",value:true}], question:""}
+        this.state = {answers: [{answer:"A"},{answer:"B"}], question:""}
         if(!this.props.isNew){
             this.state.question = this.props.question.content
             this.state.answers = JSON.parse(this.props.question.answers)
@@ -45,7 +45,7 @@ class Questions extends Component{
         var payload = {content: this.state.question, answers: JSON.stringify(this.state.answers), media_id:this.props.media.id}
         if(this.props.isNew) {
             this.props.dispatch(create_question(payload, this.props.media.id, this.props.auth.token))
-            this.setState({answers: [{answer:"A",value:false},{answer:"B",value:true}], question:""})
+            this.setState({answers: [{answer:"A"},{answer:"B"}], question:""})
         }
         else
             this.props.dispatch(update_question(payload,this.props.question.id,this.props.media.id,this.props.auth.token))
@@ -98,9 +98,6 @@ class Questions extends Component{
                             this.state.answers.map( (answer,i) =>
                                 <Cell small={12} key={i}>
                                     <Grid>
-                                        <Cell className={"shrink"}>
-                                            <CheckBox answer={i} type={PrettyColorType.PRIMARY} defaultChecked={answer.value} shape={PrettyColorShape.CURVE} name={"value"} onClick={this.changeValue}/>
-                                        </Cell>
                                         <Cell className={"auto"} >
                                             <input answer={i} type={"text"} value={answer.answer} onChange={this.changeAnswerContent} />
                                         </Cell>
