@@ -3,9 +3,11 @@ import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
-import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Inline} from "react-foundation";
+import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Grid, Inline} from "react-foundation";
 import {delete_theme, read_themes} from "../actions/themeActions";
 import {delete_media} from "../actions/mediaAction";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class ThemesListing extends Component{
     constructor(props){
@@ -25,6 +27,7 @@ class ThemesListing extends Component{
 
 
     deleteTheme(event){
+        event.preventDefault()
         const themeId = event.target.getAttribute("theme")
         console.log("delete",themeId);
         this.props.dispatch(delete_theme("",themeId, this.props.auth.token))
@@ -40,19 +43,37 @@ class ThemesListing extends Component{
                     <BreadcrumbItem>Themes</BreadcrumbItem>
                 </Breadcrumbs>
                 <h1>Themes</h1>
-                <ul>
+                <Grid gutters={"padding"}>
                     {
                         Object.values(this.props.themes).map(theme => {
-                            return (<li key={theme.id}>
-                                <Link to={`/theme/${theme.id}`}><Button color={Colors.SUCCESS}> {theme.title}</Button></Link>
-                                <Button color={Colors.ALERT} onClick={this.deleteTheme} theme={theme.id}>Delete</Button>
-                            </li>)
+                            return (
+                                <Cell small={6} medium={4} large={3} key={theme.id}>
+                                    <div className="card mycard">
+                                        <Link to={`/theme/${theme.id}`}>
+                                            <div className="card-divider">
+                                                {theme.title}
+                                                <Button className={"bt-card-delete"} color={Colors.ALERT} onClick={this.deleteTheme} theme={theme.id}><FontAwesomeIcon icon={faTrash} /></Button>
+                                            </div>
+                                            <div className="card-section">
+                                                <p>{theme.description}</p>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </Cell>
+                            )
                         })
                     }
-                </ul>
-                <Cell small={12}>
-                    <Link className={"button primary"}  to={"/theme/new"} >Create theme</Link>
-                </Cell>
+                    <Cell small={6} medium={4} large={3}>
+                        <div className="card mycard">
+                            <Link to={`/theme/new`}>
+
+                                <div className="card-divider" style={{justifyContent:"center", fontSize: "3rem"}}>
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </div>
+                            </Link>
+                        </div>
+                    </Cell>
+                </Grid>
             </Fragment>
         )
     }
