@@ -9,8 +9,10 @@ import {Cell} from "react-foundation";
 import {Grid} from "react-foundation";
 import {Button} from "react-foundation";
 import {Colors} from "react-foundation";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {create_theme} from "../actions/themeActions";
+import {Breadcrumbs} from "react-foundation";
+import {BreadcrumbItem} from "react-foundation";
 
 class CreateTheme extends Component{
     constructor(props){
@@ -42,6 +44,11 @@ class CreateTheme extends Component{
     renderOnline(){
         return (
             <Fragment>
+                <Breadcrumbs>
+                    <BreadcrumbItem><Link to={"/"}>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem><Link to={"/themes"}>Themes</Link></BreadcrumbItem>
+                    <BreadcrumbItem isDisabled={true}>New theme</BreadcrumbItem>
+                </Breadcrumbs>
                 <h1>New theme</h1>
 
                 <form method={"post"} onSubmit={this.themeUpdate}>

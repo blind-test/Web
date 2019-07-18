@@ -63,8 +63,6 @@ class Theme extends Component{
                     <BreadcrumbItem><Link to={"/themes"}>Themes</Link></BreadcrumbItem>
                     <BreadcrumbItem>{this.props.theme.title}</BreadcrumbItem>
                 </Breadcrumbs>
-                <h1>Theme</h1>
-
                 <form method={"post"} onSubmit={this.themeUpdate}>
                     <Grid>
                         <Cell small={12} medium={6}>

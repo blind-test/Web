@@ -1,5 +1,5 @@
-@import "foundation";
-@import "../node_modules/pretty-checkbox/src/pretty-checkbox";
+@import "../node_modules/foundation-sites/dist/css/foundation.min.css";
+@import "../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css";
 
 .pretty .state label:before, .pretty .state label:after{
   top:4px;
@@ -16,3 +16,30 @@
 body {
   font-size: 20px;
 }
+
+.card{
+  position: relative;
+}
+
+.bt-card-delete{
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.txtCenter{
+  text-align: center;
+}
+
+.mycard{
+  width:100%;
+
+  &:hover .bt-card-delete{
+    visibility: visible;
+  }
+
+}
+
+
+
