@@ -37,7 +37,7 @@ class MediaListing extends Component{
                     {
                         Object.values(this.props.medias).map(media => {
                             return (
-                                <Cell small={6} medium={4} large={3} key={media.id}>
+                                <Cell small={12} medium={6} large={3} key={media.id} style={{marginBottom: "1rem"}}>
                                     <div className="card mycard">
                                         <Link to={`/theme/${media.theme_id}/media/${media.id}`}>
                                             <div className="card-divider">
@@ -62,12 +62,10 @@ class MediaListing extends Component{
                             )
                         })
                     }
-                    <Cell small={6} medium={4} large={3}>
+                    <Cell small={6} medium={4} large={3} style={{marginBottom: "1rem"}}>
                         <div className="card mycard">
-                            <Link to={`/theme/${this.props.theme.id}/new`} >
-                                <div className="card-divider" style={{justifyContent:"center", fontSize: "3rem"}}>
-                                    <FontAwesomeIcon icon={faPlus} />
-                                </div>
+                            <Link className={"card-add"} to={`/theme/${this.props.theme.id}/new`} >
+                                <FontAwesomeIcon icon={faPlus} style={{alignSelf:"center"}} />
                             </Link>
                         </div>
                     </Cell>

@@ -7,6 +7,8 @@ import {PrettyColorShape, PrettyColorType, Radio} from "../helper/prettyCheckbox
 import {FileUploader} from "../helper/FileUploader";
 import {create_media} from "../actions/mediaAction";
 import {Link, Redirect} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave } from '@fortawesome/free-solid-svg-icons'
 
 class CreateMedia extends Component{
     constructor(props){
@@ -71,8 +73,7 @@ class CreateMedia extends Component{
                             <FileUploader id={"mediaFile"} label={"Upload media"}/>
                         </Cell>
                         <Cell small={12}>
-                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.createMedia}>Create
-                                media</Button>
+                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.createMedia}><FontAwesomeIcon icon={faSave}/></Button>
                         </Cell>
                     </Grid>
                 </Cell>

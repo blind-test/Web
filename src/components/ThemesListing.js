@@ -17,7 +17,6 @@ class ThemesListing extends Component{
     }
 
     componentDidMount(){
-        console.log("Themes List mounted");
         this.props.dispatch(read_themes(this.props.auth.token))
     }
 
@@ -42,12 +41,11 @@ class ThemesListing extends Component{
                     <BreadcrumbItem><Link to={"/"}>Home</Link></BreadcrumbItem>
                     <BreadcrumbItem>Themes</BreadcrumbItem>
                 </Breadcrumbs>
-                <h1>Themes</h1>
                 <Grid gutters={"padding"}>
                     {
                         Object.values(this.props.themes).map(theme => {
                             return (
-                                <Cell small={6} medium={4} large={3} key={theme.id}>
+                                <Cell small={12} medium={6} large={3} key={theme.id} style={{marginBottom: "1rem"}}>
                                     <div className="card mycard">
                                         <Link to={`/theme/${theme.id}`}>
                                             <div className="card-divider">
@@ -63,13 +61,10 @@ class ThemesListing extends Component{
                             )
                         })
                     }
-                    <Cell small={6} medium={4} large={3}>
+                    <Cell small={6} medium={4} large={3} style={{marginBottom: "1rem"}}>
                         <div className="card mycard">
-                            <Link to={`/theme/new`}>
-
-                                <div className="card-divider" style={{justifyContent:"center", fontSize: "3rem"}}>
-                                    <FontAwesomeIcon icon={faPlus} />
-                                </div>
+                            <Link className={"card-add"} to={`/theme/new`}>
+                                <FontAwesomeIcon icon={faPlus} style={{alignSelf:"center"}} />
                             </Link>
                         </div>
                     </Cell>

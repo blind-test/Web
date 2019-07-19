@@ -12,6 +12,8 @@ import MediaListing from "./MediaListing";
 import {read_medias} from "../actions/mediaAction";
 import {Breadcrumbs} from "react-foundation";
 import {BreadcrumbItem} from "react-foundation";
+import {faSave} from "@fortawesome/free-solid-svg-icons/index";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome/index.es";
 
 class Theme extends Component{
     constructor(props){
@@ -64,11 +66,15 @@ class Theme extends Component{
                     <BreadcrumbItem>{this.props.theme.title}</BreadcrumbItem>
                 </Breadcrumbs>
                 <form method={"post"} onSubmit={this.themeUpdate}>
-                    <Grid>
-                        <Cell small={12} medium={6}>
+                    <Grid gutters={"padding"}>
+                        <Cell small={6} medium={6}>
                             <label>Title
                                 <input type={"text"} name={"title"} value={this.state.title} onChange={this.handleTitleChange} />
                             </label>
+                        </Cell>
+
+                        <Cell small={6}>
+                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.themeUpdate}><FontAwesomeIcon icon={faSave} /></Button>
                         </Cell>
 
                         <Cell small={12}>
@@ -82,10 +88,6 @@ class Theme extends Component{
                             <Switch input={{defaultChecked:false, name:'private'}} id={"privateSwitch"} size={Sizes.SMALL} active={{ text: 'Yes' }} inactive={{ text: 'No' }}/>
                         </Cell>
 
-
-                        <Cell small={12}>
-                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.themeUpdate} >Update theme</Button>
-                        </Cell>
                     </Grid>
                 </form>
 
