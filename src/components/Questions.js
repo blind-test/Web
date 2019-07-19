@@ -20,16 +20,16 @@ class Questions extends Component{
         super(props)
         this.submitQuestion = this.submitQuestion.bind(this)
         this.addAnswer = this.addAnswer.bind(this)
-        this.changeValue = this.changeValue.bind(this)
         this.changeAnswerContent = this.changeAnswerContent.bind(this)
         this.changeQuestionContent = this.changeQuestionContent.bind(this)
         this.deleteAnswer = this.deleteAnswer.bind(this)
         this.deleteQuestion = this.deleteQuestion.bind(this)
-        this.state = {answers: [{answer:"A"},{answer:"B"}], question:""}
+        this.state = {answers: ["A","B"], question:""}
         if(!this.props.isNew){
             this.state.question = this.props.question.content
             this.state.answers = JSON.parse(this.props.question.answers)
         }
+
     }
 
     componentDidMount(){
@@ -45,24 +45,17 @@ class Questions extends Component{
         var payload = {content: this.state.question, answers: JSON.stringify(this.state.answers), media_id:this.props.media.id}
         if(this.props.isNew) {
             this.props.dispatch(create_question(payload, this.props.media.id, this.props.auth.token))
-            this.setState({answers: [{answer:"A"},{answer:"B"}], question:""})
+            this.setState({answers: ["A","B"], question:""})
         }
         else
             this.props.dispatch(update_question(payload,this.props.question.id,this.props.media.id,this.props.auth.token))
     }
 
-    changeValue(event){
-        const index = parseInt(event.target.getAttribute("answer"),10)
-        const answers = [...this.state.answers]
-        answers[index].value = !answers[index].value
-        this.setState({answers: answers})
-
-    }
 
     changeAnswerContent(event){
         const index = parseInt(event.target.getAttribute("answer"),10)
         const answers = [...this.state.answers]
-        answers[index].answer = event.target.value
+        answers[index] = event.target.value
         this.setState({answers: answers})
 
     }
@@ -70,7 +63,7 @@ class Questions extends Component{
     addAnswer(event){
         event.preventDefault()
         const answers = this.state.answers
-        answers.push({answer:"",value:false})
+        answers.push("")
         this.setState({answers: answers})
     }
 
@@ -99,7 +92,7 @@ class Questions extends Component{
                                 <Cell small={12} key={i}>
                                     <Grid>
                                         <Cell className={"auto"} >
-                                            <input answer={i} type={"text"} value={answer.answer} onChange={this.changeAnswerContent} />
+                                            <input answer={i} type={"text"} value={answer} onChange={this.changeAnswerContent} />
                                         </Cell>
                                         <Cell className={"shrink"}>
                                             <Button answer={i} color={Colors.ALERT} onClick={this.deleteAnswer}>Delete</Button>
