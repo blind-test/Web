@@ -1,13 +1,27 @@
 @import "../node_modules/foundation-sites/dist/css/foundation.min.css";
 @import "../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css";
+@import "form";
+
+@function hex2RGBA($color, $opacity){
+  $red: red($color);
+  $green: green($color);
+  $blue: blue($color);
+  @return rgba($red,$green, $blue, $opacity);
+}
 
 .pretty .state label:before, .pretty .state label:after{
   top:4px;
 }
 
+.top-bar{
+  &, & * {
+    background-color: white!important;
+  }
+
+  box-shadow: 1px 1px 8px 4px hex2RGBA(#000, 0.5);
+}
+
 .media-info{
-  //border-top: 1px dotted black;
-  //border-bottom: 1px dotted black;
   padding: 1rem 0;
   margin: .5rem 0;
 
