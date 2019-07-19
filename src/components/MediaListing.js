@@ -6,7 +6,7 @@ import {Link, Redirect} from "react-router-dom";
 import {Button, Cell, Colors, Grid} from "react-foundation";
 import {read_themes} from "../actions/themeActions";
 import {delete_media, read_medias} from "../actions/mediaAction";
-import {faTrash, faImage, faMusic, faFilm} from "@fortawesome/free-solid-svg-icons/index";
+import {faTrash, faImage, faMusic, faFilm, faPlus} from "@fortawesome/free-solid-svg-icons/index";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome/index.es";
 
 class MediaListing extends Component{
@@ -62,6 +62,15 @@ class MediaListing extends Component{
                             )
                         })
                     }
+                    <Cell small={6} medium={4} large={3}>
+                        <div className="card mycard">
+                            <Link to={`/theme/${this.props.theme.id}/new`} >
+                                <div className="card-divider" style={{justifyContent:"center", fontSize: "3rem"}}>
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </div>
+                            </Link>
+                        </div>
+                    </Cell>
                 </Grid>
             </Fragment>
         )

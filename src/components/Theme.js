@@ -85,7 +85,6 @@ class Theme extends Component{
 
                         <Cell small={12}>
                             <Button color={Colors.PRIMARY} type={"submit"} onClick={this.themeUpdate} >Update theme</Button>
-                            <Link className={"button primary"}  to={`/theme/${this.props.theme.id}/new`} >Create media</Link>
                         </Cell>
                     </Grid>
                 </form>
