@@ -12,14 +12,15 @@ class Index extends Component{
     render(){
         return (
             <Fragment>
+
                 <p>Hello react!</p>
             </Fragment>
         )
     }
 }
 
-function mapStateToProps(state) {
-    console.log("index state to props",state);
+function mapStateToProps(state,ownProps) {
+    ownProps.history.push('/themes')
     return {
         auth: state.auth,
 
