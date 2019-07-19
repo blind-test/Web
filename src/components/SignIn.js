@@ -8,19 +8,25 @@ class SignIn extends Component{
     constructor(props){
         super(props)
         this.logIn = this.logIn.bind(this)
+        this.updateEmail = this.updateEmail.bind(this)
+        this.updatePassword = this.updatePassword.bind(this)
+        this.state = {username: "", password: ""}
     }
 
     componentDidMount(){
-        console.log("SignIn mounted");
+    }
+
+    updatePassword(event){
+        this.setState({password: event.target.value})
+    }
+
+    updateEmail(event){
+        this.setState({username: event.target.value})
     }
 
     logIn(event){
         event.preventDefault()
-        console.log(event.target)
-        const form = event.target
-        const email = form.querySelector('[name="email"]').value
-        const password = form.querySelector('[name="password"]').value
-        const payload = {email:email, password:password}
+        const payload = {email:this.state.username, password:this.state.password}
         this.props.dispatch(sign_in(JSON.stringify(payload)))
     }
 
@@ -34,12 +40,12 @@ class SignIn extends Component{
                         <div className={"grid-x grid-padding-x"}>
                             <div className={"medium-6 small-12 cell"}>
                                 <label>Email
-                                    <input type={"text"} name={"email"} />
+                                    <input type={"text"} name={"email"} value={this.state.username} onChange={this.updateEmail} />
                                 </label>
                             </div>
                             <div className={"medium-6 small-12 cell"}>
                                 <label>Password
-                                    <input type="password" name={"password"}/>
+                                    <input type="password" name={"password"} value={this.state.password} onChange={this.updatePassword} />
                                 </label>
                             </div>
                             <div className={"medium-6 small-12 cell"}>
