@@ -27,7 +27,8 @@ import {
 function sign_in(state = {}, action){
 
     return Object.assign({},state,{
-        auth:{token:action.payload.token}
+        auth:{token:action.payload.token},
+        user: {...state.user,id: action.payload.user_id}
     })
 
 }

@@ -22,7 +22,7 @@ function receive_sign_in(payload){
         payload: payload
     }
 }
-export function sign_in(payload){
+export function sign_in(payload, callback = message => {}){
     return dispatch => {
         dispatch(request_sign_in(payload))
         return fetch(`${API_ROOT}auth/sign_in`,{
@@ -36,15 +36,20 @@ export function sign_in(payload){
             body:payload
         })
         .then(
-            response => response.json())
+            response => {
+                if(response.ok)
+                    return response.json()
+                else
+                    throw response.text()
+            })
         .then(json =>{
-            if(!json.error)
                 dispatch(receive_sign_in(json))
-            else
-                console.error("Wrong auth", json.error);
+                callback()
         })
-        .catch(error=> console.error("error while signin",error)
-        )
+        .catch(error=> {
+            console.error("error while signin",error)
+            callback("Wrong auth")
+        })
     }
 }
 

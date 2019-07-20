@@ -26,7 +26,7 @@ function receive_create_media(payload){
     }
 }
 
-export function create_media(payload, idTheme, token){
+export function create_media(payload, idTheme, token, callback = message => {}){
     return dispatch => {
         dispatch(request_create_media(payload))
         return fetch(`${API_ROOT}themes/${idTheme}/medias`,{
@@ -39,15 +39,23 @@ export function create_media(payload, idTheme, token){
             body:payload
         })
         .then(
-            response => response.json())
+            response => {
+                if(response.ok)
+                    return response.json()
+                else{
+                    const text = response.text()
+                    throw text;
+                }
+            })
         .then(json =>{
-            if(!json.error)
                 dispatch(receive_create_media(json))
-            else
-                throw json
+                callback()
+
         })
-        .catch(error=> console.error("error",error)
-        )
+        .catch(error=> {
+            // console.error("error",error)
+            callback("Creation of the media failed")
+        })
     }
 }
 

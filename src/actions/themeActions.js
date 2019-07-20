@@ -26,7 +26,7 @@ function receive_create_theme(payload){
     }
 }
 
-export function create_theme(payload, token){
+export function create_theme(payload, token, callback = message => {}){
     return dispatch => {
         dispatch(request_create_theme(payload))
         return fetch(`${API_ROOT}themes`,{
@@ -40,15 +40,20 @@ export function create_theme(payload, token){
             body:JSON.stringify(payload)
         })
         .then(
-            response => response.json())
+            response => {
+                if( response.ok)
+                    return response.json()
+                else
+                    throw response.text()
+            })
         .then(json =>{
-            if(!json.error)
                 dispatch(receive_create_theme(json))
-            else
-                console.error("json_error", json.error);
+            callback()
         })
-        .catch(error=> console.error("error",error)
-        )
+        .catch(error=> {
+            console.error("error",error)
+            callback("Theme creation wasn't successful")
+        })
     }
 }
 
@@ -67,7 +72,7 @@ function receive_update_theme(payload){
 }
 
 
-export function update_theme(payload, id, token){
+export function update_theme(payload, id, token, callback = message => {}){
     return dispatch => {
         dispatch(request_update_theme(payload))
         return fetch(`${API_ROOT}themes/${id}`,{

@@ -7,6 +7,10 @@ import {Button, Cell, Colors, Grid} from "react-foundation";
 import {read_themes} from "../actions/themeActions";
 import {read_medias} from "../actions/mediaAction";
 import {CheckBox, PrettyColorShape, PrettyColorType} from "../helper/prettyCheckbox";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPlus, faSave } from '@fortawesome/free-solid-svg-icons'
+
 import {
     create_question,
     delete_question,
@@ -82,30 +86,35 @@ class Questions extends Component{
         return (
             <Fragment>
                 <form onSubmit={this.submitQuestion}>
-                    <Grid>
-                        <Cell small={12} >
-                            <textarea name={"question"} value={this.state.question} onChange={this.changeQuestionContent} />
-                        </Cell>
+                    <Grid gutters={"padding"}>
+                        <Cell small={12}>
+                            <Grid>
+                                <Cell className={"input-field auto"} >
+                                    <textarea name={"question"} value={this.state.question} onChange={this.changeQuestionContent} />
+                                </Cell>
+                                <Cell className={"shrink"} style={{paddingTop:"45px"}}>
 
+                                    <Button color={Colors.PRIMARY} onClick={this.addAnswer} ><FontAwesomeIcon icon={faPlus}/></Button>
+                                    { !this.props.isNew ? <Button color={Colors.ALERT} onClick={this.deleteQuestion} ><FontAwesomeIcon icon={faTrash}/></Button> : undefined}
+                                    <Button color={Colors.SUCCESS} onClick={this.submitQuestion} ><FontAwesomeIcon icon={faSave}/></Button>
+
+                                </Cell>
+                            </Grid>
+                        </Cell>
                         {
                             this.state.answers.map( (answer,i) =>
-                                <Cell small={12} key={i}>
+                                <Cell small={6} medium={4} key={i}>
                                     <Grid>
-                                        <Cell className={"auto"} >
+                                        <Cell className={"auto input-field"} >
                                             <input answer={i} type={"text"} value={answer} onChange={this.changeAnswerContent} />
                                         </Cell>
-                                        <Cell className={"shrink"}>
-                                            <Button answer={i} color={Colors.ALERT} onClick={this.deleteAnswer}>Delete</Button>
+                                        <Cell className={"shrink"} style={{alignSelf:"flex-end"}}>
+                                            <Button color={Colors.ALERT} answer={i} onClick={this.deleteAnswer}><FontAwesomeIcon icon={faTrash} style={{color:"white"}}/></Button>
                                         </Cell>
                                     </Grid>
                                 </Cell>
                             )
                         }
-                        <Cell small={12}>
-                            <Button color={Colors.PRIMARY} onClick={this.addAnswer}>Add answer</Button>
-                            { !this.props.isNew ? <Button color={Colors.ALERT} onClick={this.deleteQuestion}>Delete question</Button> : undefined}
-                            <Button color={Colors.SUCCESS} onClick={this.submitQuestion}>Submit</Button>
-                        </Cell>
                     </Grid>
                 </form>
             </Fragment>

@@ -1,0 +1,41 @@
+ul.myTopbar a span {
+
+  &:before {
+    content: attr(title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #f30000;
+    color: #fff;
+    padding: 15px 20px;
+    transform-style: preserve-3d;
+    transition: .3s;
+    transform: rotateX(90deg) translateY(50px);
+    transform-origin: bottom;
+  }
+
+  &:hover:before {
+
+    transform: rotateX(0deg) translateY(0px);
+  }
+
+  &:after {
+    content: attr(title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    color: #262626;
+    padding: 15px 20px;
+    transform-style: preserve-3d;
+    transition: .3s;
+    transform: rotateX(0deg) translateY(0px);
+    transform-origin: top;
+  }
+
+  &:hover:after {
+
+    transform: rotateX(90deg) translateY(-10px);
+  }
+}
+

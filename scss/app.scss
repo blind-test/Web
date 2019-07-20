@@ -18,7 +18,7 @@
     background-color: white!important;
   }
 
-  box-shadow: 1px 1px 8px 4px hex2RGBA(#000, 0.5);
+  box-shadow: 1px 1px 8px 4px hex2RGBA(#000, 0.51);
 }
 
 .media-info{
@@ -68,4 +68,7 @@ body {
 }
 
 
-
+.media-img{
+  width: 100%;
+  max-width: 500px;
+}

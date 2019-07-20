@@ -62,7 +62,7 @@ class MediaListing extends Component{
                             )
                         })
                     }
-                    <Cell small={6} medium={4} large={3} style={{marginBottom: "1rem"}}>
+                    <Cell small={12} medium={6} large={3} style={{marginBottom: "1rem"}}>
                         <div className="card mycard">
                             <Link className={"card-add"} to={`/theme/${this.props.theme.id}/new`} >
                                 <FontAwesomeIcon icon={faPlus} style={{alignSelf:"center"}} />

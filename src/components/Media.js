@@ -8,7 +8,9 @@ import {FileUploader} from "../helper/FileUploader";
 import Questions from "./Questions";
 import {Link, Redirect} from "react-router-dom";
 import {read_questions} from "../actions/questionAction";
-import {faFilm, faImage, faMusic} from "@fortawesome/free-solid-svg-icons/index";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave } from '@fortawesome/free-solid-svg-icons'
 import {update_media} from "../actions/mediaAction";
 
 class Media extends Component {
@@ -54,7 +56,7 @@ class Media extends Component {
                         <Cell className={"shrink"}>
                             {
                                 this.props.media.kind === 'picture'
-                                    ? <img src={this.props.media.file_url}/>
+                                    ? <img className={"media-img"} src={this.props.media.file_url}/>
                                     : this.props.media.kind === 'music'
                                     ? <audio controls><source src={this.props.media.file_url}/></audio>
                                     : this.props.media.kind === 'movie' || this.props.media.kind === 'video'
@@ -62,12 +64,12 @@ class Media extends Component {
                                     : ''
                             }
                         </Cell>
-                        <Cell className={"auto"} style={{paddingLeft: "0.5rem"}}>
-                            <label>Title
+                        <Cell className={"auto input-field"} style={{paddingLeft: "0.5rem"}}>
                                 <input type={"text"} name={"title"} onChange={this.updateTitle}
                                        value={this.state.title}/>
-                            </label>
-                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.updateMedia}>Update media</Button>
+                            <label>Title</label>
+
+                            <Button color={Colors.SUCCESS} type={"submit"} onClick={this.updateMedia}><FontAwesomeIcon icon={faSave} /></Button>
                         </Cell>
 
                     </Grid>

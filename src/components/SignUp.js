@@ -26,7 +26,7 @@ class SignUp extends Component {
     }
 
     updateUsername(event) {
-        this.setState({username: event.target.value})
+        this.setState({nickname: event.target.value})
     }
 
     updatePassword(event) {
@@ -49,7 +49,7 @@ class SignUp extends Component {
                     <Grid gutters={"padding"}>
                         <Cell className={"input-field"} small={12} medium={6}>
                             <input type={"text"} name={"username"} onChange={this.updateUsername} required
-                                   value={this.state.username}/>
+                                   value={this.state.nickname}/>
                             <label>Username</label>
 
                         </Cell>

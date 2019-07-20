@@ -2,13 +2,14 @@ import React, {Component, Fragment} from 'react'
 import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
-import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Grid} from "react-foundation";
+import {BreadcrumbItem, Breadcrumbs, Button, Callout, Cell, Colors, Grid} from "react-foundation";
 import {PrettyColorShape, PrettyColorType, Radio} from "../helper/prettyCheckbox";
 import {FileUploader} from "../helper/FileUploader";
 import {create_media} from "../actions/mediaAction";
 import {Link, Redirect} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons/index";
 
 class CreateMedia extends Component{
     constructor(props){
@@ -16,7 +17,8 @@ class CreateMedia extends Component{
         this.createMedia = this.createMedia.bind(this)
         this.updateKind = this.updateKind.bind(this)
         this.updateTitle= this.updateTitle.bind(this)
-
+        this.creationFailed = this.creationFailed.bind(this)
+        this.redirectAfterCreation = this.redirectAfterCreation.bind(this)
         this.state = {title:"",kind:""}
     }
 
@@ -32,7 +34,8 @@ class CreateMedia extends Component{
         // form.append("kind",this.state.kind)
         var file = document.getElementById('mediaFile').files[0]
         form.append("file",file)
-        this.props.dispatch(create_media(form,theme.id, auth.token))
+        const callback = message => message ? this.creationFailed(message) : this.redirectAfterCreation()
+        this.props.dispatch(create_media(form,theme.id, auth.token, callback))
 
     }
 
@@ -46,6 +49,14 @@ class CreateMedia extends Component{
     }
 
 
+    creationFailed(message){
+        this.setState({message: message})
+    }
+
+    redirectAfterCreation(){
+        this.props.history.push(`/theme/${this.props.theme.id}`)
+    }
+
     renderOnline() {
         return (
             <Fragment>
@@ -58,15 +69,21 @@ class CreateMedia extends Component{
                     </BreadcrumbItem>
                     <BreadcrumbItem isDisabled>Create Media</BreadcrumbItem>
                 </Breadcrumbs>
+
+                { this.state.message ?
+                    <Callout color={Colors.ALERT}>
+                        <h5 style={{color:"darkred"}}><FontAwesomeIcon icon={faExclamationTriangle}/>Creation Failure</h5>
+                        <p>{this.state.message}</p>
+                    </Callout>
+                    : ""
+                }
+
                 <Cell small={12}>
                     <Grid>
-                        <Cell small={12}>
-                            <label>Title
+                        <Cell className={"input-field"} small={12}>
                                 <input type={"text"} name={"title"} onChange={this.updateTitle}/>
-                            </label>
-                        </Cell>
-                        <Cell small={12}>
-                            Type
+                            <label>Title</label>
+
                         </Cell>
 
                         <Cell small={12}>
