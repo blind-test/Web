@@ -16,7 +16,7 @@ export const initialState = {
         password: ''
     },
     auth:{
-        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.ju-Xskwi7AfFDoFa00HX20DVJmEBkJtzoONDQY16BpI"
+        token: undefined
     }
 }
 // const DOMAIN = "192.168.56.101"

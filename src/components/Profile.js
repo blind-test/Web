@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
-import {sign_in} from "../actions/userActions";
+import {sign_in, update_profile} from "../actions/userActions";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSave, faTrash} from '@fortawesome/free-solid-svg-icons'
 import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Grid} from "react-foundation";
@@ -25,8 +25,13 @@ class Profile extends Component {
 
     profileUpdate(event) {
         event.preventDefault()
-        // const payload = {email:username, password:password}
-        // this.props.dispatch(sign_in(JSON.stringify(payload)))
+
+        const payload = Object.assign({}, this.state)
+        Object.keys(payload).forEach(key => {
+            if(payload[key].length === 0) delete payload[key]
+        })
+        console.log(payload, this.state);
+        this.props.dispatch(update_profile(JSON.stringify(payload), this.props.user.id, this.props.auth.token))
 
     }
 
@@ -66,7 +71,7 @@ class Profile extends Component {
                     <BreadcrumbItem><Link to={"/"}>Home</Link></BreadcrumbItem>
                     <BreadcrumbItem isDisabled={true}>Profile</BreadcrumbItem>
                 </Breadcrumbs>
-                <form method={"post"} onSubmit={this.profileUpdate}>
+
                     <Grid gutters={"padding"}>
                         <Cell className={"input-field"} small={12} medium={6}>
                             <input type={"text"} name={"username"} onChange={this.changeUsername}
@@ -74,7 +79,7 @@ class Profile extends Component {
                             <label>Username</label>
                         </Cell>
                         <Cell className={"input-field"} small={12} medium={6}>
-                            <input type={"text"} name={"email"} onChange={this.changeEmail} value={this.state.email}/>
+                            <input type={"text"} name={"email"} pattern={"([a-zA-Z0-9\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z]+)?"} onChange={this.changeEmail} value={this.state.email}/>
                             <label>Email</label>
 
                         </Cell>
@@ -98,7 +103,6 @@ class Profile extends Component {
                             <Button color={Colors.ALERT} onClick={this.deleteAccount}><FontAwesomeIcon icon={faTrash}/></Button>
                         </Cell>
                     </Grid>
-                </form>
             </Fragment>
         )
     }
@@ -115,6 +119,7 @@ function mapStateToProps(state, ownProps) {
 
     return {
         auth: state.app.auth,
+        user: state.app.user
     }
 }
 
