@@ -5,7 +5,7 @@ import {sign_in, update_profile} from "../actions/userActions";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSave, faTrash} from '@fortawesome/free-solid-svg-icons'
 import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Grid} from "react-foundation";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class Profile extends Component {
     constructor(props) {
