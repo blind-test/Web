@@ -1,8 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
-import {sign_in} from "../actions/userActions";
-import Media from "./Media";
 import * as Sizes from "react-foundation";
 import {Switch} from "react-foundation";
 import {Cell} from "react-foundation";
@@ -76,19 +74,19 @@ class CreateTheme extends Component{
 
                 <form method={"post"} onSubmit={this.themeUpdate}>
                     <Grid>
-                        <Cell small={12} medium={6}>
+                        <Cell className={"input-field"} small={12} medium={6} required>
+                            <input type={"text"} name={"title"} />
                             <label>Title
-                                <input type={"text"} name={"title"} />
                             </label>
                         </Cell>
 
-                        <Cell small={12}>
+                        <Cell className={"input-field"} small={12} required>
+                            <textarea name={"description"} />
                             <label>Description
-                                <textarea name={"description"} />
                             </label>
                         </Cell>
 
-                        <Cell small={6} medium={6}>
+                        <Cell small={6} medium={6} hidden>
                             <p>Private</p>
                             <Switch input={{defaultChecked:false, name:'private'}} id={"privateSwitch"} size={Sizes.SMALL} active={{ text: 'Yes' }} inactive={{ text: 'No' }}/>
                         </Cell>

@@ -187,7 +187,7 @@ function request_delete_profile(){
 }
 
 
-export function delete_profile(payload, id, token){
+export function delete_profile(id, token){
     return dispatch => {
         dispatch(request_delete_profile(token))
         return fetch(`${API_ROOT}users/${id}`,{
@@ -202,6 +202,8 @@ export function delete_profile(payload, id, token){
             .then(
                 response => {
                     if(response.ok) dispatch(receive_delete_profile())
+                    else
+                        return response.text()
                 }
             )
             .catch(error=> console.error(error)

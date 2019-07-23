@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react'
 import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
-import {sign_in, update_profile} from "../actions/userActions";
+import {delete_profile, sign_in, update_profile} from "../actions/userActions";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSave, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faSave, faTrash, faUserSecret} from '@fortawesome/free-solid-svg-icons'
 import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Grid} from "react-foundation";
 import {Link, Redirect} from "react-router-dom";
 
@@ -38,7 +38,7 @@ class Profile extends Component {
     deleteAccount(event) {
         event.preventDefault()
         if (confirm("Are you sure you want to delete your account ?")) {
-            console.log("to delete");
+            this.props.dispatch(delete_profile(this.props.user.id, this.props.auth.token))
         }
     }
 

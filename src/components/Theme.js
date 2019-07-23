@@ -84,7 +84,7 @@ class Theme extends Component{
                         </Cell>
 
                         <Cell small={6} medium={6} hidden>
-                            <p>Private1</p>
+                            <p>Private</p>
                             <Switch input={{defaultChecked:false, name:'private'}} id={"privateSwitch"} size={Sizes.SMALL} active={{ text: 'Yes' }} inactive={{ text: 'No' }}/>
                         </Cell>
 
