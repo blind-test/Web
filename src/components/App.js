@@ -10,8 +10,7 @@ const App = ({children}) => {
             <Topbar />
             <br/>
             <div className={"grid-container"}>
-
-            {children}
+                {children}
             </div>
         </Fragment>
 

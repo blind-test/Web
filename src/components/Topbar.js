@@ -2,7 +2,8 @@ import React, {Component, Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
 import {sign_out} from "../actions/userActions";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignInAlt, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 class Topbar extends Component{
@@ -27,7 +28,6 @@ class Topbar extends Component{
                 <div className="top-bar-left">
                     <ul className="dropdown menu" >
                         <li className="menu-text">Blind Test</li>
-                        <li><Link to={"/"}>Home</Link></li>
                         {!!auth.token
                             ? <Fragment>
                                 <li><Link to={"/profile"}>Profile</Link></li>
@@ -42,12 +42,12 @@ class Topbar extends Component{
                         {!auth.token
                             ?
                             <Fragment>
-                                <li><Link to={"/sign_in"}>Sign In</Link></li>
-                                <li><Link to={"/sign_up"}>Join Us</Link></li>
+                                <li><Link to={"/sign_in"}><FontAwesomeIcon icon={faSignInAlt}/> Sign In</Link></li>
+                                <li><Link to={"/sign_up"}><FontAwesomeIcon icon={faUsers}/> Join Us</Link></li>
                             </Fragment>
                             :
                             <Fragment>
-                                <li><a onClick={this.logOut}>Log out</a></li>
+                                <li><a onClick={this.logOut}><FontAwesomeIcon icon={faSignOutAlt}/> Log out</a></li>
                             </Fragment>
                         }
                     </ul>

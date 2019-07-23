@@ -3,9 +3,11 @@ import {Topbar} from "./Topbar";
 import {connect} from "react-redux";
 import {sign_in} from "../actions/userActions";
 import {Link, Redirect} from "react-router-dom";
-import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Inline} from "react-foundation";
+import {BreadcrumbItem, Breadcrumbs, Button, Cell, Colors, Grid, Inline} from "react-foundation";
 import {delete_theme, read_themes} from "../actions/themeActions";
 import {delete_media} from "../actions/mediaAction";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class ThemesListing extends Component{
     constructor(props){
@@ -15,7 +17,6 @@ class ThemesListing extends Component{
     }
 
     componentDidMount(){
-        console.log("Themes List mounted");
         this.props.dispatch(read_themes(this.props.auth.token))
     }
 
@@ -25,6 +26,7 @@ class ThemesListing extends Component{
 
 
     deleteTheme(event){
+        event.preventDefault()
         const themeId = event.target.getAttribute("theme")
         console.log("delete",themeId);
         this.props.dispatch(delete_theme("",themeId, this.props.auth.token))
@@ -39,20 +41,34 @@ class ThemesListing extends Component{
                     <BreadcrumbItem><Link to={"/"}>Home</Link></BreadcrumbItem>
                     <BreadcrumbItem>Themes</BreadcrumbItem>
                 </Breadcrumbs>
-                <h1>Themes</h1>
-                <ul>
+                <Grid gutters={"padding"}>
                     {
                         Object.values(this.props.themes).map(theme => {
-                            return (<li key={theme.id}>
-                                <Link to={`/theme/${theme.id}`}><Button color={Colors.SUCCESS}> {theme.title}</Button></Link>
-                                <Button color={Colors.ALERT} onClick={this.deleteTheme} theme={theme.id}>Delete</Button>
-                            </li>)
+                            return (
+                                <Cell small={12} medium={6} large={3} key={theme.id} style={{marginBottom: "1rem"}}>
+                                    <div className="card mycard">
+                                        <Link to={`/theme/${theme.id}`}>
+                                            <div className="card-divider">
+                                                {theme.title}
+                                                <Button className={"bt-card-delete"} color={Colors.ALERT} onClick={this.deleteTheme} theme={theme.id}><FontAwesomeIcon icon={faTrash} /></Button>
+                                            </div>
+                                            <div className="card-section">
+                                                <p>{theme.description}</p>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </Cell>
+                            )
                         })
                     }
-                </ul>
-                <Cell small={12}>
-                    <Link className={"button primary"}  to={"/theme/new"} >Create theme</Link>
-                </Cell>
+                    <Cell small={12} medium={6} large={3} style={{marginBottom: "1rem"}}>
+                        <div className="card mycard">
+                            <Link className={"card-add"} to={`/theme/new`}>
+                                <FontAwesomeIcon icon={faPlus} style={{alignSelf:"center"}} />
+                            </Link>
+                        </div>
+                    </Cell>
+                </Grid>
             </Fragment>
         )
     }

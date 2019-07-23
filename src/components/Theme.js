@@ -12,6 +12,8 @@ import MediaListing from "./MediaListing";
 import {read_medias} from "../actions/mediaAction";
 import {Breadcrumbs} from "react-foundation";
 import {BreadcrumbItem} from "react-foundation";
+import {faSave} from "@fortawesome/free-solid-svg-icons/index";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome/index.es";
 
 class Theme extends Component{
     constructor(props){
@@ -22,7 +24,8 @@ class Theme extends Component{
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
         this.handleTitleChange = this.handleTitleChange.bind(this)
         // this.setState({title:this.props.theme.title,description:this.props.theme.description})
-        this.state = {title:this.props.theme.title,description:this.props.theme.description}
+        if(!this.props.redirect_to)
+            this.state = {title:this.props.theme.title,description:this.props.theme.description}
     }
 
     componentDidMount(){
@@ -63,20 +66,21 @@ class Theme extends Component{
                     <BreadcrumbItem><Link to={"/themes"}>Themes</Link></BreadcrumbItem>
                     <BreadcrumbItem>{this.props.theme.title}</BreadcrumbItem>
                 </Breadcrumbs>
-                <h1>Theme</h1>
-
                 <form method={"post"} onSubmit={this.themeUpdate}>
-                    <Grid>
-                        <Cell small={12} medium={6}>
-                            <label>Title
+                    <Grid gutters={"padding"}>
+                        <Cell className={"input-field"} small={6} medium={6}>
                                 <input type={"text"} name={"title"} value={this.state.title} onChange={this.handleTitleChange} />
-                            </label>
+                            <label>Title</label>
                         </Cell>
 
-                        <Cell small={12}>
-                            <label>Description
+                        <Cell small={6} style={{paddingTop:"36px"}}>
+                            <Button color={Colors.SUCCESS} type={"submit"} onClick={this.themeUpdate}><FontAwesomeIcon icon={faSave} /></Button>
+                        </Cell>
+
+                        <Cell className={"input-field"} small={12}>
                                 <textarea name={"description"} value={this.state.description} onChange={this.handleDescriptionChange} />
-                            </label>
+                            <label>Description</label>
+
                         </Cell>
 
                         <Cell small={6} medium={6} hidden>
@@ -84,11 +88,6 @@ class Theme extends Component{
                             <Switch input={{defaultChecked:false, name:'private'}} id={"privateSwitch"} size={Sizes.SMALL} active={{ text: 'Yes' }} inactive={{ text: 'No' }}/>
                         </Cell>
 
-
-                        <Cell small={12}>
-                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.themeUpdate} >Update theme</Button>
-                            <Link className={"button primary"}  to={`/theme/${this.props.theme.id}/new`} >Create media</Link>
-                        </Cell>
                     </Grid>
                 </form>
 
@@ -114,7 +113,7 @@ function mapStateToProps(state, ownProps){
     }
     if(!state.app.auth.token)
         return {redirect_to: "/sign_in"}
-    if(!props.theme) ownProps.history.push("/themes")
+    if(!props.theme) return {redirect_to: "/themes"}
     else
         return props
 }

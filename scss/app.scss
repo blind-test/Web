@@ -1,13 +1,27 @@
-@import "foundation";
-@import "../node_modules/pretty-checkbox/src/pretty-checkbox";
+@import "../node_modules/foundation-sites/dist/css/foundation.min.css";
+@import "../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css";
+@import "form";
+
+@function hex2RGBA($color, $opacity){
+  $red: red($color);
+  $green: green($color);
+  $blue: blue($color);
+  @return rgba($red,$green, $blue, $opacity);
+}
 
 .pretty .state label:before, .pretty .state label:after{
   top:4px;
 }
 
+.top-bar{
+  &, & * {
+    background-color: white!important;
+  }
+
+  box-shadow: 1px 1px 8px 4px hex2RGBA(#000, 0.51);
+}
+
 .media-info{
-  //border-top: 1px dotted black;
-  //border-bottom: 1px dotted black;
   padding: 1rem 0;
   margin: .5rem 0;
 
@@ -15,4 +29,46 @@
 
 body {
   font-size: 20px;
+}
+
+.card{
+  position: relative;
+  box-shadow: 4px 4px 8px 1px hex2RGBA(#000, 0.5);
+}
+
+.bt-card-delete{
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.txtCenter{
+  text-align: center;
+}
+
+.mycard{
+  width:100%;
+  height:100%;
+  &:hover .bt-card-delete{
+    visibility: visible;
+  }
+
+}
+
+.card-add{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  text-align: center;
+  font-size: 8rem;
+  height: 100%;
+  background: #e6e6e6;
+}
+
+
+.media-img{
+  width: 100%;
+  max-width: 500px;
 }

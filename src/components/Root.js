@@ -12,6 +12,7 @@ import Theme from "./Theme";
 import CreateTheme from "./CreateTheme";
 import CreateMedia from "./CreateMedia";
 import Media from "./Media";
+import GDPR from "./GDPR"
 // import ThemesListing from "./ThemesListing";
 // import Theme from "./Theme";
 
@@ -20,6 +21,7 @@ const Root = ({ store }) => (
         <Router>
             <App>
                 <Route exact path="/" component={Index}/>
+                <Route exact path="/privacy-policy" component={GDPR} />
                 <Route exact path="/sign_in" component={SignIn}/>
                 <Route exact path="/sign_up" component={SignUp}/>
                 <Route exact path="/profile" component={Profile}/>

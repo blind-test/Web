@@ -5,7 +5,7 @@ import {
     REQUEST_SIGN_OUT,
     RECEIVE_SIGN_OUT,
     REQUEST_SIGN_UP,
-    RECEIVE_SIGN_UP
+    RECEIVE_SIGN_UP, RECEIVE_DELETE_PROFILE
 } from '../actions/userActions'
 import {initialState} from '../constant'
 import {
@@ -27,7 +27,8 @@ import {
 function sign_in(state = {}, action){
 
     return Object.assign({},state,{
-        auth:{token:action.payload.token}
+        auth:{token:action.payload.token},
+        user: {...state.user,id: action.payload.user_id}
     })
 
 }
@@ -57,7 +58,6 @@ function add_theme(state = {}, action){
 function add_themes(state = {}, action){
     const themes = {}
     action.payload.map(theme => themes[theme.id] = theme);
-    console.log("reducer themes",themes);
     return {...state, themes:themes}
 }
 
@@ -66,7 +66,6 @@ function add_medias(state = {}, action){
     const theme = action.payload.count > 0 ? action.payload[0] : undefined
 
     action.payload.map(media => medias[media.id] = media);
-    console.log("reducer medias",medias);
 
     return {...state, medias:medias  }
 }
@@ -112,6 +111,7 @@ function app(state = initialState, action){
             return sign_in(state, action)
         case RECEIVE_SIGN_UP:
             return sign_up(state, action)
+        case RECEIVE_DELETE_PROFILE:
         case RECEIVE_SIGN_OUT:
             return sign_out(state, action)
         case RECEIVE_CREATE_THEME:

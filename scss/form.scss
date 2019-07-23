@@ -1,0 +1,50 @@
+.input-field{
+  position: relative;
+  padding-top: 36px;
+}
+
+.input-field textarea,
+.input-field input
+{
+  box-shadow: none;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border:none;
+  outline: none;
+  border-bottom: 2px solid #666;
+  font-size: 16px;
+  color:#666;
+  font-weight: 700;
+  &:focus{
+    border:none;
+    border-bottom: 2px solid #A66;
+    box-shadow: none;
+  }
+}
+.input-field label{
+  position: absolute;
+  top: 36px;
+  left: 1.5rem;
+  padding: 5px 0;
+  pointer-events: none;
+  color:#666;
+  font-weight: 700;
+  font-size: 16px;
+  transition: .5s;
+}
+
+.input-field input:focus + label,
+.input-field textarea:focus + label,
+.input-field input:valid + label,
+.input-field textarea:valid + label
+{
+  top: 0px;
+  left: 0.9375rem;
+  font-size: 14px;
+  padding: 2px 5px;
+  background: #ff006a;
+  color:#fff;
+  border-radius: 4px;
+
+}

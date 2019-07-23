@@ -9,10 +9,15 @@ import Questions from "./Questions";
 import {Link, Redirect} from "react-router-dom";
 import {read_questions} from "../actions/questionAction";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave } from '@fortawesome/free-solid-svg-icons'
+import {update_media} from "../actions/mediaAction";
+
 class Media extends Component {
     constructor(props) {
         super(props)
         this.updateTitle = this.updateTitle.bind(this)
+        this.updateMedia = this.updateMedia.bind(this)
         if(this.props.redirect_to===undefined){
             this.state = {title: this.props.media.title || "",questions:[]}
         }
@@ -29,8 +34,12 @@ class Media extends Component {
         this.setState({title: event.target.value})
     }
 
+    updateMedia(event){
+        const payload = JSON.stringify({title: this.state.title})
+        this.props.dispatch(update_media(payload, this.props.theme.id, this.props.media.id, this.props.auth.token ))
+    }
+
     renderOn() {
-        console.log("Media props", this.props)
         return (
             <Fragment>
                 <Breadcrumbs>
@@ -43,22 +52,30 @@ class Media extends Component {
                     <BreadcrumbItem>{this.props.media.title}</BreadcrumbItem>
                 </Breadcrumbs>
                 <Cell className={"media-info"} small={12}>
-                    <Grid>
-                        <Cell small={12}>
-                            <label>Title
+                    <Grid gutters={"padding"}>
+                        <Cell className={"shrink"}>
+                            {
+                                this.props.media.kind === 'picture'
+                                    ? <img className={"media-img"} src={this.props.media.file_url}/>
+                                    : this.props.media.kind === 'music'
+                                    ? <audio controls><source src={this.props.media.file_url}/></audio>
+                                    : this.props.media.kind === 'movie' || this.props.media.kind === 'video'
+                                    ? <video width="320" height="240" controls><source src={this.props.media.file_url}/></video>
+                                    : ''
+                            }
+                        </Cell>
+                        <Cell className={"auto input-field"} style={{paddingLeft: "0.5rem"}}>
                                 <input type={"text"} name={"title"} onChange={this.updateTitle}
                                        value={this.state.title}/>
-                            </label>
+                            <label>Title</label>
+
+                            <Button color={Colors.SUCCESS} type={"submit"} onClick={this.updateMedia}><FontAwesomeIcon icon={faSave} /></Button>
                         </Cell>
-                        {/*<Cell small={12}>*/}
-                        {/*<img src={this.props.media.file_url}/>*/}
-                        {/*</Cell>*/}
-                        <Cell small={12}>
-                            <Button color={Colors.PRIMARY} type={"submit"} onClick={this.create_media}>Update
-                                media</Button>
-                        </Cell>
+
                     </Grid>
-                    <hr/>
+                    {
+                        this.props.questions.length > 0 ? <hr/> : ""
+                    }
                     {
                         this.props.questions.map((question, i) =>
                             <Fragment key={i}>
